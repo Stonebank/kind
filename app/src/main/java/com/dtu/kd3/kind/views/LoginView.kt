@@ -17,7 +17,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.dtu.kd3.kind.R
-import com.dtu.kd3.kind.input.InputType
+import com.dtu.kd3.kind.input.TextInputType
 import com.dtu.kd3.kind.ui.theme.Shapes
 import com.dtu.kd3.kind.ui.theme.buttonColor
 import com.dtu.kd3.kind.ui.theme.primaryColor
@@ -47,8 +47,8 @@ fun LoginView() {
                 Modifier
                     .width(236.dp)
                     .height(200.dp))
-            TextInput(InputType.Email, keyboardActions = KeyboardActions(onNext = { passwordFocusRequester.requestFocus() }))
-            TextInput(InputType.Password, keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() }), focusRequester = passwordFocusRequester)
+            TextInput(TextInputType.Email, keyboardActions = KeyboardActions(onNext = { passwordFocusRequester.requestFocus() }))
+            TextInput(TextInputType.Password, keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() }), focusRequester = passwordFocusRequester)
             Button(onClick = { /* TODO */ }, shape = CircleShape, colors = ButtonDefaults.buttonColors(backgroundColor = buttonColor), modifier = Modifier.fillMaxWidth()) {
                 Text("Log ind", Modifier.padding(vertical = 8.dp), color = Color.White)
             }
@@ -67,7 +67,7 @@ fun LoginView() {
 }
 
 @Composable
-fun TextInput(inputType: InputType, focusRequester: FocusRequester? = null, keyboardActions: KeyboardActions) {
+fun TextInput(inputType: TextInputType, focusRequester: FocusRequester? = null, keyboardActions: KeyboardActions) {
     var value by remember { mutableStateOf("") }
     TextField(
         value = value,
