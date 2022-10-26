@@ -34,8 +34,6 @@ import com.dtu.kd3.kind.ui.theme.secondaryColor
  *  - Password and confirm password matches
  *  - Password requirements
  *
- *  Other:
- *  - Fix keyboard overriding text inputs
  *
  */
 
