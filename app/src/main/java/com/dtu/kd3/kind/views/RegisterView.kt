@@ -4,8 +4,10 @@ import TextInput
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -47,6 +49,7 @@ fun ShowRegisterView() {
         Column(modifier = Modifier
             .background(primaryColor)
             .padding(24.dp)
+            .verticalScroll(rememberScrollState())
             .fillMaxSize(), verticalArrangement = Arrangement.spacedBy(16.dp, alignment = Alignment.Bottom), horizontalAlignment = Alignment.CenterHorizontally) {
             Image(painter = painterResource(id = R.drawable.logo), contentDescription = "kd3_logo",
                 Modifier
@@ -58,7 +61,8 @@ fun ShowRegisterView() {
                 FocusDirection.Next) }))
             TextInput("Bekræft e-mail", TextInputType.Email, keyboardActions = KeyboardActions(onNext = { focusManager.moveFocus(
                 FocusDirection.Next) }))
-            TextInput(TextInputType.Password, keyboardActions = KeyboardActions(onNext = { passwordFocusRequester.requestFocus() }))
+            TextInput(TextInputType.Password, keyboardActions = KeyboardActions(onNext = { focusManager.moveFocus(
+                FocusDirection.Next) }))
             TextInput("Bekræft kodeord", TextInputType.Password, keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() }), focusRequester = passwordFocusRequester)
             Button(onClick = { /* TODO */ }, shape = CircleShape, colors = ButtonDefaults.buttonColors(backgroundColor = buttonColor), modifier = Modifier.fillMaxWidth()) {
                 Text("Opret bruger", Modifier.padding(vertical = 8.dp), color = Color.White)
