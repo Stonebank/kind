@@ -1,16 +1,16 @@
 package com.dtu.kd3.kind.views
 
+import TextInput
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.material.*
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.focus.focusOrder
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
@@ -18,7 +18,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.dtu.kd3.kind.R
 import com.dtu.kd3.kind.input.TextInputType
-import com.dtu.kd3.kind.ui.theme.Shapes
 import com.dtu.kd3.kind.ui.theme.buttonColor
 import com.dtu.kd3.kind.ui.theme.primaryColor
 import com.dtu.kd3.kind.ui.theme.secondaryColor
@@ -68,54 +67,3 @@ fun LoginView() {
     }
 
 }
-
-@Composable
-fun TextInput(inputType: TextInputType, focusRequester: FocusRequester? = null, keyboardActions: KeyboardActions) {
-    var value by remember { mutableStateOf("") }
-    TextField(
-        value = value,
-        onValueChange = { value = it },
-        modifier = Modifier
-            .fillMaxWidth()
-            .focusOrder(focusRequester ?: FocusRequester()),
-        leadingIcon = { Icon(imageVector = inputType.icon, null) },
-        label = { Text(inputType.label) },
-        keyboardOptions = inputType.keyboardOptions,
-        visualTransformation = inputType.visualTransformation,
-        shape = Shapes.small,
-        colors = TextFieldDefaults.textFieldColors(
-            backgroundColor = secondaryColor,
-            focusedIndicatorColor = Color.Transparent,
-            unfocusedIndicatorColor = Color.Transparent,
-            disabledIndicatorColor = Color.Transparent
-        ),
-        singleLine = true,
-        keyboardActions = keyboardActions
-    )
-}
-
-@Composable
-fun TextInput(label: String, inputType: TextInputType, focusRequester: FocusRequester? = null, keyboardActions: KeyboardActions) {
-    var value by remember { mutableStateOf("") }
-    TextField(
-        value = value,
-        onValueChange = { value = it },
-        modifier = Modifier
-            .fillMaxWidth()
-            .focusOrder(focusRequester ?: FocusRequester()),
-        leadingIcon = { Icon(imageVector = inputType.icon, null) },
-        label = { Text(label) },
-        keyboardOptions = inputType.keyboardOptions,
-        visualTransformation = inputType.visualTransformation,
-        shape = Shapes.small,
-        colors = TextFieldDefaults.textFieldColors(
-            backgroundColor = secondaryColor,
-            focusedIndicatorColor = Color.Transparent,
-            unfocusedIndicatorColor = Color.Transparent,
-            disabledIndicatorColor = Color.Transparent
-        ),
-        singleLine = true,
-        keyboardActions = keyboardActions
-    )
-}
-

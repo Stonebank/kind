@@ -1,5 +1,6 @@
 package com.dtu.kd3.kind.views
 
+import TextInput
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
