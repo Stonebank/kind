@@ -15,6 +15,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.dtu.kd3.kind.R
 import com.dtu.kd3.kind.input.InputType
 import com.dtu.kd3.kind.ui.theme.Shapes
@@ -42,11 +43,17 @@ fun LoginView() {
             .background(primaryColor)
             .padding(24.dp)
             .fillMaxSize(), verticalArrangement = Arrangement.spacedBy(16.dp, alignment = Alignment.Bottom), horizontalAlignment = Alignment.CenterHorizontally) {
-            Image(painter = painterResource(id = R.drawable.logo), contentDescription = "kd3_logo", Modifier.width(236.dp).height(200.dp))
+            Image(painter = painterResource(id = R.drawable.logo), contentDescription = "kd3_logo",
+                Modifier
+                    .width(236.dp)
+                    .height(200.dp))
             TextInput(InputType.Email, keyboardActions = KeyboardActions(onNext = { passwordFocusRequester.requestFocus() }))
             TextInput(InputType.Password, keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() }), focusRequester = passwordFocusRequester)
             Button(onClick = { /* TODO */ }, shape = CircleShape, colors = ButtonDefaults.buttonColors(backgroundColor = buttonColor), modifier = Modifier.fillMaxWidth()) {
                 Text("Log ind", Modifier.padding(vertical = 8.dp), color = Color.White)
+            }
+            TextButton(onClick = { /*TODO*/ }, modifier = Modifier.align(Alignment.End)) {
+                Text("Glemt adgangskode?", color = Color.Black, fontSize = 12.sp)
             }
             Divider(color = Color.White.copy(alpha = 0.3f), thickness = 2.dp, modifier = Modifier.padding(24.dp))
             Row(verticalAlignment = Alignment.CenterVertically) {
