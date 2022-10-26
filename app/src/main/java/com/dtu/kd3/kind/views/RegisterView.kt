@@ -9,6 +9,7 @@ import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
@@ -50,9 +51,12 @@ fun ShowRegisterView() {
                 Modifier
                     .width(236.dp)
                     .height(200.dp))
-            TextInput(TextInputType.Name, keyboardActions = KeyboardActions(onNext = { passwordFocusRequester.requestFocus() }))
-            TextInput(TextInputType.Email, keyboardActions = KeyboardActions(onNext = { passwordFocusRequester.requestFocus() }))
-            TextInput("Bekræft e-mail", TextInputType.Email, keyboardActions = KeyboardActions(onNext = { passwordFocusRequester.requestFocus() }))
+            TextInput(TextInputType.Name, keyboardActions = KeyboardActions(onNext = { focusManager.moveFocus(
+                FocusDirection.Next) }))
+            TextInput(TextInputType.Email, keyboardActions = KeyboardActions(onNext = { focusManager.moveFocus(
+                FocusDirection.Next) }))
+            TextInput("Bekræft e-mail", TextInputType.Email, keyboardActions = KeyboardActions(onNext = { focusManager.moveFocus(
+                FocusDirection.Next) }))
             TextInput(TextInputType.Password, keyboardActions = KeyboardActions(onNext = { passwordFocusRequester.requestFocus() }))
             TextInput("Bekræft kodeord", TextInputType.Password, keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() }), focusRequester = passwordFocusRequester)
             Button(onClick = { /* TODO */ }, shape = CircleShape, colors = ButtonDefaults.buttonColors(backgroundColor = buttonColor), modifier = Modifier.fillMaxWidth()) {
