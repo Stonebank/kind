@@ -27,6 +27,9 @@ import com.dtu.kd3.kind.ui.theme.secondaryColor
 /**
  * @Author s205409 - Hassan Kassem
  *
+ * @TODO:
+ *
+ *  - Determine if user exists
  *
  * @LoginView.kt is the view that shows the login screen when opening the app unsigned or as a new user
  *
@@ -75,8 +78,33 @@ fun TextInput(inputType: TextInputType, focusRequester: FocusRequester? = null, 
         modifier = Modifier
             .fillMaxWidth()
             .focusOrder(focusRequester ?: FocusRequester()),
-        leadingIcon = { Icon(imageVector = inputType.icon, "email_icon") },
+        leadingIcon = { Icon(imageVector = inputType.icon, null) },
         label = { Text(inputType.label) },
+        keyboardOptions = inputType.keyboardOptions,
+        visualTransformation = inputType.visualTransformation,
+        shape = Shapes.small,
+        colors = TextFieldDefaults.textFieldColors(
+            backgroundColor = secondaryColor,
+            focusedIndicatorColor = Color.Transparent,
+            unfocusedIndicatorColor = Color.Transparent,
+            disabledIndicatorColor = Color.Transparent
+        ),
+        singleLine = true,
+        keyboardActions = keyboardActions
+    )
+}
+
+@Composable
+fun TextInput(label: String, inputType: TextInputType, focusRequester: FocusRequester? = null, keyboardActions: KeyboardActions) {
+    var value by remember { mutableStateOf("") }
+    TextField(
+        value = value,
+        onValueChange = { value = it },
+        modifier = Modifier
+            .fillMaxWidth()
+            .focusOrder(focusRequester ?: FocusRequester()),
+        leadingIcon = { Icon(imageVector = inputType.icon, null) },
+        label = { Text(label) },
         keyboardOptions = inputType.keyboardOptions,
         visualTransformation = inputType.visualTransformation,
         shape = Shapes.small,
