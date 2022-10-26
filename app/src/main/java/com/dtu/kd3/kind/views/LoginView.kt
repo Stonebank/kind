@@ -35,7 +35,7 @@ import com.dtu.kd3.kind.ui.theme.secondaryColor
  */
 
 @Composable
-fun LoginView() {
+fun ShowLoginView() {
 
     val passwordFocusRequester = FocusRequester()
     val focusManager = LocalFocusManager.current
