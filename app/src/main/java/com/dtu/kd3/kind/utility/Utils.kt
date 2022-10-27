@@ -7,11 +7,12 @@ import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.focus.focusOrder
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import com.dtu.kd3.kind.input.TextInputType
 import com.dtu.kd3.kind.ui.theme.Shapes
 import com.dtu.kd3.kind.ui.theme.secondaryColor
+import java.util.*
 
 @Composable
 fun TextInput(inputType: TextInputType, focusRequester: FocusRequester? = null, keyboardActions: KeyboardActions) {
@@ -21,7 +22,7 @@ fun TextInput(inputType: TextInputType, focusRequester: FocusRequester? = null, 
         onValueChange = { value = it },
         modifier = Modifier
             .fillMaxWidth()
-            .focusOrder(focusRequester ?: FocusRequester()),
+            .focusRequester(focusRequester ?: FocusRequester()),
         leadingIcon = { Icon(imageVector = inputType.icon, null) },
         label = { Text(inputType.label) },
         keyboardOptions = inputType.keyboardOptions,
@@ -46,7 +47,7 @@ fun TextInput(label: String, inputType: TextInputType, focusRequester: FocusRequ
         onValueChange = { value = it },
         modifier = Modifier
             .fillMaxWidth()
-            .focusOrder(focusRequester ?: FocusRequester()),
+            .focusRequester(focusRequester ?: FocusRequester()),
         leadingIcon = { Icon(imageVector = inputType.icon, null) },
         label = { Text(label) },
         keyboardOptions = inputType.keyboardOptions,
@@ -61,4 +62,5 @@ fun TextInput(label: String, inputType: TextInputType, focusRequester: FocusRequ
         singleLine = true,
         keyboardActions = keyboardActions
     )
+
 }
