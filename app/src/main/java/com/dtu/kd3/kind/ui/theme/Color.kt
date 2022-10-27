@@ -12,5 +12,11 @@ val primaryColor = Color(206, 221, 200)
 // F6F8F3
 val secondaryColor = Color(246, 248, 243)
 
-// Login button color
+// primary button color
 val buttonColor = Color(136, 198, 120)
+
+// secondary button color
+val secondaryButtonColor = Color(217, 217, 217)
+
+// title color
+val titleColor = Color(87, 105, 74)
