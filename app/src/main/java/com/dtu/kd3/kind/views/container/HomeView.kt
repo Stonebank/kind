@@ -1,4 +1,4 @@
-package com.dtu.kd3.kind.views
+package com.dtu.kd3.kind.views.container
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -22,10 +22,13 @@ import kotlin.math.roundToInt
 
 /**
  * @author s205409 - Hassan K
+ *
+ * Passing argument email is temporarily since this application has no real functionality and is just for demonstration. Argument should be a name instead.
+ *
  */
 
 @Composable
-fun ShowHomeView() {
+fun ShowHomeView(email: String?) {
     val configuration = LocalConfiguration.current
     val splitHeight = (configuration.screenHeightDp / 2).dp
     Surface(modifier = Modifier.fillMaxWidth()) {
@@ -35,11 +38,11 @@ fun ShowHomeView() {
                 .height(height = splitHeight)
                 .verticalScroll(rememberScrollState())
                 .fillMaxWidth()) {
-                Text("Hej Hassan Kassem",
+                Text("Hej $email",
                     Modifier
                         .padding(vertical = 10.dp)
                         .padding(horizontal = 10.dp), color = Color.Black, fontWeight = FontWeight.Bold, fontSize = 18.sp)
-                ShowDonatedAmount(amount = 200.0)
+                ShowDonatedAmount(amount = (100..1000).random().toDouble())
                 Text(
                     "Du er blandt 1% af top donerer i denne måned. Godt gået!",
                     color = Color.Black,
