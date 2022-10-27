@@ -7,9 +7,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.dtu.kd3.kind.views.ComposableView
-import com.dtu.kd3.kind.views.container.ShowHomeView
-import com.dtu.kd3.kind.views.container.ShowLoginView
-import com.dtu.kd3.kind.views.container.ShowRegisterView
+import com.dtu.kd3.kind.views.container.*
 
 @Composable
 fun Navigation() {
@@ -26,7 +24,13 @@ fun Navigation() {
                 type = NavType.StringType
                 nullable = true
             })) {
-            entry -> ShowHomeView(email = entry.arguments?.getString("email"))
+            entry -> ShowHomeView(email = entry.arguments?.getString("email"), navController = navigationController)
+        }
+        composable(route = ComposableView.PortfolioView.route) {
+            ShowPortFolioView(navController = navigationController)
+        }
+        composable(route = ComposableView.BuildPortfolioView.route) {
+            ShowBuildPortFolioView(navController = navigationController)
         }
     }
 }

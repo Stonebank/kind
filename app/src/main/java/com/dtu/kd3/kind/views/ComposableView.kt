@@ -18,6 +18,12 @@ sealed class ComposableView(val route: String) {
     /* HomeView.kt */
     object HomeView: ComposableView("home_view")
 
+    /* PortfolioView.kt */
+    object PortfolioView: ComposableView("portfolio_view")
+
+    /* BuildPortfolioView.kt */
+    object BuildPortfolioView: ComposableView("build_portfolio_view")
+
     fun passArguments(vararg args: String) : String {
         return buildString {
             append(route)

@@ -12,7 +12,6 @@ import androidx.compose.ui.graphics.Color
 import com.dtu.kd3.kind.input.TextInputType
 import com.dtu.kd3.kind.ui.theme.Shapes
 import com.dtu.kd3.kind.ui.theme.secondaryColor
-import java.util.*
 
 @Composable
 fun TextInput(inputType: TextInputType, focusRequester: FocusRequester? = null, keyboardActions: KeyboardActions) {

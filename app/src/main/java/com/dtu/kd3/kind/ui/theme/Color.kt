@@ -20,3 +20,6 @@ val secondaryButtonColor = Color(217, 217, 217)
 
 // title color
 val titleColor = Color(87, 105, 74)
+
+// percentage color
+val percentageColor = Color(241, 208, 127)

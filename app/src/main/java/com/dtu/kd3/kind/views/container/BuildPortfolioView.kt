@@ -19,6 +19,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.dtu.kd3.kind.ui.theme.buttonColor
 import com.dtu.kd3.kind.ui.theme.secondaryButtonColor
 import com.dtu.kd3.kind.ui.theme.secondaryColor
@@ -31,7 +32,7 @@ import java.util.*
  */
 
 @Composable
-fun ShowBuildPortFolioView() {
+fun ShowBuildPortFolioView(navController: NavController) {
     Surface(modifier = Modifier.fillMaxWidth()) {
         Column(modifier = Modifier
             .background(secondaryColor)

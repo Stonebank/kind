@@ -6,6 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.material.Surface
 import com.dtu.kd3.kind.controller.Navigation
 import com.dtu.kd3.kind.ui.theme.KindTheme
+import com.dtu.kd3.kind.views.container.ShowPortFolioView
 
 
 class MainActivity : ComponentActivity() {

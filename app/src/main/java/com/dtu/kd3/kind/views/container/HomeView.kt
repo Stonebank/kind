@@ -4,6 +4,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -16,8 +18,11 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import com.dtu.kd3.kind.ui.theme.buttonColor
 import com.dtu.kd3.kind.ui.theme.primaryColor
 import com.dtu.kd3.kind.ui.theme.secondaryColor
+import com.dtu.kd3.kind.views.ComposableView
 import kotlin.math.roundToInt
 
 /**
@@ -28,7 +33,7 @@ import kotlin.math.roundToInt
  */
 
 @Composable
-fun ShowHomeView(email: String?) {
+fun ShowHomeView(email: String?, navController: NavController) {
     val configuration = LocalConfiguration.current
     val splitHeight = (configuration.screenHeightDp / 2).dp
     Surface(modifier = Modifier.fillMaxWidth()) {
@@ -52,8 +57,11 @@ fun ShowHomeView(email: String?) {
                         .padding(vertical = 150.dp)
                         .padding(horizontal = 10.dp))
             }
-            Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.Top, horizontalAlignment = Alignment.CenterHorizontally) {
+            Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.spacedBy(15.dp), horizontalAlignment = Alignment.CenterHorizontally) {
                 ShowCard()
+                Button(onClick = { navController.navigate(ComposableView.PortfolioView.route) }, colors = ButtonDefaults.buttonColors(buttonColor)) {
+                    Text("Portfolio profile")
+                }
             }
         }
     }
@@ -62,8 +70,10 @@ fun ShowHomeView(email: String?) {
 @Composable
 fun ShowCard() {
     Box(modifier = Modifier
-        .width(250.dp).height(220.dp)
-        .background(secondaryColor).shadow(5.dp, shape = RectangleShape)) {
+        .width(250.dp)
+        .height(220.dp)
+        .background(secondaryColor)
+        .shadow(5.dp, shape = RectangleShape)) {
     }
 }
 
