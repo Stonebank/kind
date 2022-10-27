@@ -18,11 +18,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.dtu.kd3.kind.R
 import com.dtu.kd3.kind.input.TextInputType
 import com.dtu.kd3.kind.ui.theme.buttonColor
 import com.dtu.kd3.kind.ui.theme.primaryColor
 import com.dtu.kd3.kind.ui.theme.secondaryColor
+import com.dtu.kd3.kind.views.ComposableView
 
 /**
  * @author s205409 - Hassan Kassem
@@ -38,7 +40,7 @@ import com.dtu.kd3.kind.ui.theme.secondaryColor
  */
 
 @Composable
-fun ShowRegisterView() {
+fun ShowRegisterView(navController: NavController) {
 
     val passwordFocusRequester = FocusRequester()
     val focusManager = LocalFocusManager.current
@@ -62,7 +64,7 @@ fun ShowRegisterView() {
             TextInput(TextInputType.Password, keyboardActions = KeyboardActions(onNext = { focusManager.moveFocus(
                 FocusDirection.Next) }))
             TextInput("Bekræft kodeord", TextInputType.Password, keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() }), focusRequester = passwordFocusRequester)
-            Button(onClick = { /* TODO */ }, shape = CircleShape, colors = ButtonDefaults.buttonColors(backgroundColor = buttonColor), modifier = Modifier.fillMaxWidth()) {
+            Button(onClick = { navController.navigate( ComposableView.HomeView.passArguments("KD3") ) }, shape = CircleShape, colors = ButtonDefaults.buttonColors(backgroundColor = buttonColor), modifier = Modifier.fillMaxWidth()) {
                 Text("Opret bruger", Modifier.padding(vertical = 8.dp), color = Color.White)
             }
             Divider(color = Color.White.copy(alpha = 0.3f), thickness = 2.dp, modifier = Modifier.padding(24.dp))

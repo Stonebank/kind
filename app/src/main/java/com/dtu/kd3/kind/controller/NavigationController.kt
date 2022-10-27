@@ -19,7 +19,7 @@ fun Navigation() {
             ShowLoginView(navController = navigationController)
         }
         composable(route = ComposableView.RegisterView.route) {
-            ShowRegisterView()
+            ShowRegisterView(navController = navigationController)
         }
         composable(
             route = ComposableView.HomeView.route + "/{email}", arguments = listOf(navArgument("email") {
