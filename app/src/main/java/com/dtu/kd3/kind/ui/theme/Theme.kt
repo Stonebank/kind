@@ -30,7 +30,7 @@ private val LightColorPalette = lightColors(
 )
 
 @Composable
-fun FlowerMeditationAppTheme(
+fun FlowerDonationAppTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit
 ) {

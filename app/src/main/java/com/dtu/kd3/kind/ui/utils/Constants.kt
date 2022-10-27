@@ -4,29 +4,29 @@ import androidx.compose.ui.graphics.Color
 
 val Donation_Category = listOf(
     Donationcategory(
-        "Category",
-        "Procent",
+        "Social udsatte",
+        "25%",
         Color.White,
         Color.Yellow,
         Color.White
     ),
     Donationcategory(
-        "Category",
-        "Procent",
+        "Sundhed",
+        "20%",
         Color.White,
         Color.Yellow,
         Color.White
     ),
     Donationcategory(
-        "Category",
-        "Procent",
+        "Dyrevelførd",
+        "25%",
         Color.White,
         Color.Yellow,
         Color.White
     ),
     Donationcategory(
-        "Category",
-        "Procent",
+        "Miljø",
+        "30%",
         Color.White,
         Color.Yellow,
         Color.White
