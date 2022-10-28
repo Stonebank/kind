@@ -1,5 +1,9 @@
 package com.dtu.kd3.kind.controller
 
+/**
+ * author s205409 - Hassan Kassem
+ */
+
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
