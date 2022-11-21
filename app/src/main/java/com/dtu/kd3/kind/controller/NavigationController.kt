@@ -4,6 +4,10 @@ package com.dtu.kd3.kind.controller
  * author s205409 - Hassan Kassem
  */
 
+import android.annotation.SuppressLint
+import androidx.compose.material.Scaffold
+import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost

@@ -1,15 +1,13 @@
 package com.dtu.kd3.kind.views.container
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -26,6 +24,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.dtu.kd3.kind.utility.CategoryTestData
 import com.dtu.kd3.kind.R
+import com.dtu.kd3.kind.controller.BottomNavigation
 import com.dtu.kd3.kind.ui.theme.*
 import com.dtu.kd3.kind.views.ComposableView
 import java.util.*
@@ -38,8 +37,10 @@ import java.util.*
  *
  */
 
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun ShowPortFolioView(navController: NavController) {
+    Scaffold(bottomBar = { BottomNavigation(navController = navController) }) {
         Surface(modifier = Modifier.fillMaxWidth()) {
             Column(modifier = Modifier
                 .background(secondaryColor)
@@ -65,6 +66,7 @@ fun ShowPortFolioView(navController: NavController) {
                 ) }
             }
         }
+    }
 }
 
 @Composable

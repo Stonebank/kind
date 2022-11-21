@@ -1,5 +1,8 @@
 package com.dtu.kd3.kind.views
 
+import com.dtu.kd3.kind.R
+import com.dtu.kd3.kind.views.ComposableView.LoginView.route
+
 /**
  * @author s205409 - Hassan Kassem
  *
@@ -7,22 +10,22 @@ package com.dtu.kd3.kind.views
  *
  */
 
-sealed class ComposableView(val route: String) {
+sealed class ComposableView(val title: String, val icon: Int, val route: String) {
 
     /* LoginView.kt */
-    object LoginView : ComposableView("login_view")
+    object LoginView : ComposableView("", -1, "login_view")
 
     /* RegisterView.kt */
-    object RegisterView : ComposableView("register_view")
+    object RegisterView : ComposableView("", -1, "register_view")
 
     /* HomeView.kt */
-    object HomeView: ComposableView("home_view")
+    object HomeView: ComposableView("Home", R.drawable.ic_baseline_home_24, "home_view")
 
     /* PortfolioView.kt */
-    object PortfolioView: ComposableView("portfolio_view")
+    object PortfolioView: ComposableView("Portfølje",  R.drawable.ic_baseline_person_24, "portfolio_view")
 
     /* BuildPortfolioView.kt */
-    object BuildPortfolioView: ComposableView("build_portfolio_view")
+    object BuildPortfolioView: ComposableView("", -1,"build_portfolio_view")
 
     fun passArguments(vararg args: String) : String {
         return buildString {
