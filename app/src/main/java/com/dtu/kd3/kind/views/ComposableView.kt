@@ -26,6 +26,9 @@ sealed class ComposableView(val title: String, val icon: Int, val route: String)
     /* BuildPortfolioView.kt */
     object BuildPortfolioView: ComposableView("", -1,"build_portfolio_view")
 
+    /* Editprofile.kt */
+    object EditProfileView: ComposableView("", -1,"edit_profile_view")
+
     fun passArguments(vararg args: String) : String {
         return buildString {
             append(route)

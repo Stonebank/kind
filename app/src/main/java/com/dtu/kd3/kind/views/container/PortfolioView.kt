@@ -54,7 +54,7 @@ fun ShowPortFolioView(navController: NavController) {
                         CircleShape
                     ))
                 Row(modifier = Modifier.fillMaxHeight(), horizontalArrangement = Arrangement.spacedBy(15.dp)) {
-                    Button(onClick = { /*TODO*/ }, colors = ButtonDefaults.buttonColors(backgroundColor = buttonColor), shape = CircleShape) {
+                    Button(onClick = { navController.navigate(ComposableView.EditProfileView.route)}, colors = ButtonDefaults.buttonColors(backgroundColor = buttonColor), shape = CircleShape) {
                         Text("Rediger profil")
                     }
                     Button(onClick = { navController.navigate(ComposableView.BuildPortfolioView.route) }, colors = ButtonDefaults.buttonColors(backgroundColor = buttonColor), shape = CircleShape) {

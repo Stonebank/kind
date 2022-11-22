@@ -48,5 +48,8 @@ fun Navigation() {
         composable(route = ComposableView.BuildPortfolioView.route) {
             ShowBuildPortFolioView(navController = navigationController)
         }
+        composable(route = ComposableView.EditProfileView.route) {
+            ShowEditProfileView(navController = navigationController)
+        }
     }
 }
