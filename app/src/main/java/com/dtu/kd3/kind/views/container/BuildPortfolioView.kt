@@ -1,11 +1,9 @@
 package com.dtu.kd3.kind.views.container
 
 import android.annotation.SuppressLint
-import androidx.compose.foundation.background
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -13,17 +11,20 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.dtu.kd3.kind.R
 import com.dtu.kd3.kind.controller.BottomNavigation
 import com.dtu.kd3.kind.ui.theme.buttonColor
 import com.dtu.kd3.kind.ui.theme.secondaryButtonColor
 import com.dtu.kd3.kind.ui.theme.secondaryColor
 import com.dtu.kd3.kind.ui.theme.titleColor
 import com.dtu.kd3.kind.utility.CategoryTestData
+import com.dtu.kd3.kind.views.ComposableView
 import java.util.*
 
 /**
@@ -40,7 +41,10 @@ fun ShowBuildPortFolioView(navController: NavController) {
                 .padding(24.dp)
                 .verticalScroll(rememberScrollState())
                 .fillMaxSize(), verticalArrangement = Arrangement.spacedBy(16.dp, alignment = Alignment.Bottom), horizontalAlignment = Alignment.CenterHorizontally) {
-                Text(text = "Byg din portefølje", color = titleColor, fontWeight = FontWeight.Bold, fontSize = 22.sp)
+                Row(modifier = Modifier.background(secondaryColor).fillMaxWidth()) {
+                    Image(modifier = Modifier.clickable { navController.navigate(ComposableView.PortfolioView.route) }, painter = painterResource(id = R.drawable.ic_baseline_arrow_back_24), contentDescription = "")
+                    Text(modifier = Modifier.padding(start = 24.dp), text = "Byg din portefølje", color = titleColor, fontWeight = FontWeight.Bold, fontSize = 22.sp, textAlign = TextAlign.Center)
+                }
                 Text(text = "Opbyg din helt egen personlige portfølje", color = Color.Black, fontSize = 16.sp)
                 CategoryTestData.values().forEach { value -> ThemeCard(
                     title = value.title,
