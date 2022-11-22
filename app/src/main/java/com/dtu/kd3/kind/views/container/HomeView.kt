@@ -7,7 +7,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
@@ -19,7 +19,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.dtu.kd3.kind.ui.theme.*
+import com.dtu.kd3.kind.model.User
+import com.dtu.kd3.kind.ui.theme.primaryColor
+import com.dtu.kd3.kind.ui.theme.secondaryColor
+import com.dtu.kd3.kind.ui.theme.titleColor
 import java.util.*
 import kotlin.math.roundToInt
 
@@ -35,6 +38,15 @@ import kotlin.math.roundToInt
 fun ShowHomeView(name: String?, isDonator: Boolean?, navController: NavController) {
     val configuration = LocalConfiguration.current
     val splitHeight = (configuration.screenHeightDp / 2).dp
+
+    var user by remember { mutableStateOf(User("")) }
+    var amount by remember { mutableStateOf(0.0) }
+    var isDonator by remember { mutableStateOf(false) }
+
+    if (name != null) {
+        user = User(name)
+    }
+
     Scaffold(bottomBar = { com.dtu.kd3.kind.controller.BottomNavigation(navController = navController) }) {
         Surface(modifier = Modifier.fillMaxWidth()) {
             Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.spacedBy(10.dp, alignment = Alignment.Top), horizontalAlignment = Alignment.End) {
@@ -43,12 +55,50 @@ fun ShowHomeView(name: String?, isDonator: Boolean?, navController: NavControlle
                     .height(height = splitHeight)
                     .verticalScroll(rememberScrollState())
                     .fillMaxWidth()) {
-                    Text("Hej $name",
+                    Text("Hej ${user.name}",
                         Modifier
                             .padding(vertical = 10.dp)
                             .padding(horizontal = 10.dp), color = Color.Black, fontWeight = FontWeight.Bold, fontSize = 18.sp)
-                    if (isDonator != null) {
-                        ShowDonatedAmount(amount = 0.0, isDonator)
+                    Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.spacedBy(15.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+                        if (isDonator) {
+                            Text(
+                                "Dit abonnement er på plads og du er on track til at donere ${user.donation.toInt()} kr.",
+                                color = Color.Black,
+                                fontWeight = FontWeight.Bold,
+                                fontSize = 24.sp,
+                                modifier = Modifier
+                                    .padding(vertical = 50.dp)
+                                    .padding(horizontal = 10.dp)
+                            )
+                            Text(
+                                "Du er blandt 1% af top donerer i denne måned. Godt gået!",
+                                color = Color.Black,
+                                fontWeight = FontWeight.Bold,
+                                fontSize = 18.sp,
+                                modifier = Modifier
+                                    .padding(vertical = 150.dp)
+                                    .padding(horizontal = 10.dp)
+                            )
+                        } else {
+                            Text(
+                                "Vi mangler din hjælp! Start med at donere i dag ved at trykke på knappen nedenunder",
+                                color = Color.Black,
+                                fontWeight = FontWeight.Bold,
+                                fontSize = 24.sp,
+                                modifier = Modifier
+                                    .padding(vertical = 50.dp)
+                                    .padding(horizontal = 10.dp)
+                            )
+                        }
+                        Button(onClick = {
+                            amount = (50..1000).random().toDouble()
+                            isDonator = true
+                            user.donation = amount }, shape = CircleShape, colors = ButtonDefaults.buttonColors(
+                            Color.Green)) {
+                            Text("Start", fontSize = 16.sp, fontWeight = FontWeight.Bold)
+                            println("${user.isDonator} ${user.donation}")
+                        }
+                        println("${user.isDonator} ${user.donation}")
                     }
                 }
                 Column(modifier = Modifier
@@ -79,73 +129,6 @@ fun UpdateCard(title: String, description: String) {
 }
 
 @Composable
-fun ShowDonatedAmount(amount: Double, isDonator: Boolean) {
-    Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.spacedBy(15.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-        if (isDonator) {
-            Text(
-                "Dit abonnement er på plads og du er on track til at donere ${amount.roundToInt()} kr.",
-                color = Color.Black,
-                fontWeight = FontWeight.Bold,
-                fontSize = 24.sp,
-                modifier = Modifier
-                    .padding(vertical = 50.dp)
-                    .padding(horizontal = 10.dp)
-            )
-            Text(
-                "Du er blandt 1% af top donerer i denne måned. Godt gået!",
-                color = Color.Black,
-                fontWeight = FontWeight.Bold,
-                fontSize = 18.sp,
-                modifier = Modifier
-                    .padding(vertical = 150.dp)
-                    .padding(horizontal = 10.dp)
-            )
-        } else {
-            Text(
-                "Vi mangler din hjælp! Start med at donere i dag ved at trykke på knappen nedenunder",
-                color = Color.Black,
-                fontWeight = FontWeight.Bold,
-                fontSize = 24.sp,
-                modifier = Modifier
-                    .padding(vertical = 50.dp)
-                    .padding(horizontal = 10.dp)
-            )
-        }
-        Button(onClick = { /*TODO*/ }, shape = CircleShape, colors = ButtonDefaults.buttonColors(
-            Color.Green)) {
-            Text("Start", fontSize = 16.sp, fontWeight = FontWeight.Bold)
-        }
-    }
-    /*if (isDonator) {
-        Text(
-            "Dit abonnement er på plads og du er on track til at donere ${amount.roundToInt()} kr.",
-            color = Color.Black,
-            fontWeight = FontWeight.Bold,
-            fontSize = 24.sp,
-            modifier = Modifier
-                .padding(vertical = 50.dp)
-                .padding(horizontal = 10.dp)
-        )
-        Text(
-            "Du er blandt 1% af top donerer i denne måned. Godt gået!",
-            color = Color.Black,
-            fontWeight = FontWeight.Bold,
-            fontSize = 18.sp,
-            modifier = Modifier
-                .padding(vertical = 150.dp)
-                .padding(horizontal = 10.dp)
-        )
-    } else {
-        Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.spacedBy(15.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-            Text(
-                "Vi mangler din hjælp! Start med at donere i dag ved at trykke på knappen nedenunder",
-                color = Color.Black,
-                fontWeight = FontWeight.Bold,
-                fontSize = 24.sp
-        }
-        Button(onClick = { /*TODO*/ }, shape = CircleShape, colors = ButtonDefaults.buttonColors(
-            Color.Green)) {
-            Text("Start", fontSize = 16.sp, fontWeight = FontWeight.Bold)
-            }
-    }*/
+fun ShowDonatedAmount(user: User) {
+
 }
