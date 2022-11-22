@@ -28,11 +28,19 @@ fun Navigation() {
             ShowRegisterView(navController = navigationController)
         }
         composable(
-            route = ComposableView.HomeView.route + "/{email}", arguments = listOf(navArgument("email") {
+            route = ComposableView.HomeView.route + "/{name}/{isDonator}",
+            arguments = listOf(
+                navArgument("name") {
                 type = NavType.StringType
-                nullable = true
-            })) {
-            entry -> ShowHomeView(email = entry.arguments?.getString("email"), navController = navigationController)
+                nullable = true },
+                navArgument("isDonator") {
+                    type = NavType.BoolType
+                    defaultValue = false
+                }
+            )) {
+            entry ->
+            entry.arguments?.getBoolean("isDonator")?.let { ShowHomeView(name = entry.arguments?.getString("name"), isDonator = it, navController = navigationController) }
+
         }
         composable(route = ComposableView.PortfolioView.route) {
             ShowPortFolioView(navController = navigationController)

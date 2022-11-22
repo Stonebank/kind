@@ -1,7 +1,6 @@
 package com.dtu.kd3.kind.views
 
 import com.dtu.kd3.kind.R
-import com.dtu.kd3.kind.views.ComposableView.LoginView.route
 
 /**
  * @author s205409 - Hassan Kassem
