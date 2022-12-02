@@ -28,7 +28,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.dtu.kd3.kind.R
 import com.dtu.kd3.kind.input.TextInputType
-import com.dtu.kd3.kind.model.User
+import com.dtu.kd3.kind.model.UserViewModel
 import com.dtu.kd3.kind.ui.theme.buttonColor
 import com.dtu.kd3.kind.ui.theme.primaryColor
 import com.dtu.kd3.kind.ui.theme.secondaryColor
@@ -42,12 +42,12 @@ import com.dtu.kd3.kind.views.ComposableView
  */
 
 @Composable
-fun ShowEditProfileView(navController: NavController) {
+fun ShowEditProfileView(navController: NavController, userViewModel: UserViewModel) {
 
     val passwordFocusRequester = FocusRequester()
     val focusManager = LocalFocusManager.current
 
-    val user by remember { mutableStateOf(User("KD3")) }
+    userViewModel.setName("KD3")
 
     Surface(modifier = Modifier.fillMaxSize()) {
         Column(modifier = Modifier
@@ -55,7 +55,7 @@ fun ShowEditProfileView(navController: NavController) {
             .padding(24.dp)
             .verticalScroll(rememberScrollState())
             .fillMaxSize(), verticalArrangement = Arrangement.spacedBy(16.dp, alignment = Alignment.Bottom), horizontalAlignment = Alignment.CenterHorizontally) {
-            Text(user.name, color = titleColor, fontWeight = FontWeight.Bold, fontSize = 22.sp)
+            Text(userViewModel.name.value, color = titleColor, fontWeight = FontWeight.Bold, fontSize = 22.sp)
             Image(painter = painterResource(id = R.drawable.stock_profile), contentDescription = "profile_picture", contentScale = ContentScale.Crop, modifier = Modifier
                 .size(90.dp)
                 .clip(

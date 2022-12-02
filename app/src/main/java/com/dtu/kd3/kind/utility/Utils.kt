@@ -13,6 +13,11 @@ import com.dtu.kd3.kind.input.TextInputType
 import com.dtu.kd3.kind.ui.theme.Shapes
 import com.dtu.kd3.kind.ui.theme.secondaryColor
 
+/**
+ * author: s205409 - Hassan Kassem
+ */
+
+
 @Composable
 fun TextInput(inputType: TextInputType, focusRequester: FocusRequester? = null, keyboardActions: KeyboardActions) {
     var value by remember { mutableStateOf("") }

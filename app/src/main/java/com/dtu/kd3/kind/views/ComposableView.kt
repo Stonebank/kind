@@ -29,6 +29,9 @@ sealed class ComposableView(val title: String, val icon: Int, val route: String)
     /* Editprofile.kt */
     object EditProfileView: ComposableView("", -1,"edit_profile_view")
 
+    /* set donation view */
+    object SetDonationView: ComposableView("", -1,"set_donation_view")
+
     fun passArguments(vararg args: String) : String {
         return buildString {
             append(route)

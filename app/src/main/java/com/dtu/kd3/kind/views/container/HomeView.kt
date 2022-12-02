@@ -19,12 +19,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.dtu.kd3.kind.model.User
+import com.dtu.kd3.kind.model.UserViewModel
 import com.dtu.kd3.kind.ui.theme.primaryColor
 import com.dtu.kd3.kind.ui.theme.secondaryColor
 import com.dtu.kd3.kind.ui.theme.titleColor
+import com.dtu.kd3.kind.views.ComposableView
 import java.util.*
-import kotlin.math.roundToInt
 
 /**
  * @author s205409 - Hassan K
@@ -35,17 +35,9 @@ import kotlin.math.roundToInt
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun ShowHomeView(name: String?, isDonator: Boolean?, navController: NavController) {
+fun ShowHomeView(navController: NavController, userViewModel: UserViewModel) {
     val configuration = LocalConfiguration.current
     val splitHeight = (configuration.screenHeightDp / 2).dp
-
-    var user by remember { mutableStateOf(User("")) }
-    var amount by remember { mutableStateOf(0.0) }
-    var isDonator by remember { mutableStateOf(false) }
-
-    if (name != null) {
-        user = User(name)
-    }
 
     Scaffold(bottomBar = { com.dtu.kd3.kind.controller.BottomNavigation(navController = navController) }) {
         Surface(modifier = Modifier.fillMaxWidth()) {
@@ -55,14 +47,14 @@ fun ShowHomeView(name: String?, isDonator: Boolean?, navController: NavControlle
                     .height(height = splitHeight)
                     .verticalScroll(rememberScrollState())
                     .fillMaxWidth()) {
-                    Text("Hej ${user.name}",
+                    Text("Hej ${userViewModel.name.value}",
                         Modifier
                             .padding(vertical = 10.dp)
                             .padding(horizontal = 10.dp), color = Color.Black, fontWeight = FontWeight.Bold, fontSize = 18.sp)
                     Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.spacedBy(15.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-                        if (isDonator) {
+                        if (userViewModel.donator.value) {
                             Text(
-                                "Dit abonnement er på plads og du er on track til at donere ${user.donation.toInt()} kr.",
+                                "Dit abonnement er på plads og du er on track til at donere ${userViewModel.donated.value.toInt()} kr.",
                                 color = Color.Black,
                                 fontWeight = FontWeight.Bold,
                                 fontSize = 24.sp,
@@ -91,14 +83,12 @@ fun ShowHomeView(name: String?, isDonator: Boolean?, navController: NavControlle
                             )
                         }
                         Button(onClick = {
-                            amount = (50..1000).random().toDouble()
-                            isDonator = true
-                            user.donation = amount }, shape = CircleShape, colors = ButtonDefaults.buttonColors(
+                            navController.navigate(route = ComposableView.SetDonationView.route)
+                            //userViewModel.setDonator(true)
+                            /*userViewModel.setDonation((50..1000).random().toDouble())*/}, shape = CircleShape, colors = ButtonDefaults.buttonColors(
                             Color.Green)) {
                             Text("Start", fontSize = 16.sp, fontWeight = FontWeight.Bold)
-                            println("${user.isDonator} ${user.donation}")
                         }
-                        println("${user.isDonator} ${user.donation}")
                     }
                 }
                 Column(modifier = Modifier
@@ -126,9 +116,4 @@ fun UpdateCard(title: String, description: String) {
                 textAlign = TextAlign.Center)
         }
     }
-}
-
-@Composable
-fun ShowDonatedAmount(user: User) {
-
 }
