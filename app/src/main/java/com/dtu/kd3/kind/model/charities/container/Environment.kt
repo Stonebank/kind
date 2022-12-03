@@ -14,6 +14,6 @@ class Environment : Theme {
     }
 
     override fun getDescription(): Array<String> {
-        return arrayOf("Bidrag med at forbedre miljøet", "Eksempel description...")
+        return arrayOf("Bidrag med at forbedre miljøet", "Miljø-velgørenheder: 'Julemærkefonden', 'Dansk Naturfredningsforening'")
     }
 }

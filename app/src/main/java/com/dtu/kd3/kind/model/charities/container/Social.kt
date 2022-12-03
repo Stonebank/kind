@@ -19,7 +19,7 @@ class Social : Theme {
     }
 
     override fun getDescription(): Array<String> {
-        return arrayOf("Hjælp de hjemløse rundt omkring i Danmark", "Eksempel description...")
+        return arrayOf("Hjælp de hjemløse rundt omkring i Danmark", "SocialUdsatte-velgørenheder: 'Røde Kors', 'Social hjælp', 'Red social'")
     }
 
 }

@@ -2,6 +2,7 @@ package com.dtu.kd3.kind.views.container
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.view.Gravity
 import android.widget.Toast
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
@@ -24,7 +25,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.dtu.kd3.kind.MainActivity
 import com.dtu.kd3.kind.R
 import com.dtu.kd3.kind.controller.BottomNavigation
 import com.dtu.kd3.kind.model.UserViewModel
@@ -32,7 +32,6 @@ import com.dtu.kd3.kind.ui.theme.buttonColor
 import com.dtu.kd3.kind.ui.theme.secondaryButtonColor
 import com.dtu.kd3.kind.ui.theme.secondaryColor
 import com.dtu.kd3.kind.ui.theme.titleColor
-import com.dtu.kd3.kind.model.charities.Category
 import com.dtu.kd3.kind.model.charities.Theme
 import com.dtu.kd3.kind.model.charities.ThemeManager
 import com.dtu.kd3.kind.views.ComposableView
@@ -99,7 +98,8 @@ fun ThemeCard(userViewModel: UserViewModel, theme: Theme, localContext: Context)
             }, shape = CircleShape, colors = ButtonDefaults.buttonColors(backgroundColor = buttonColor)) {
                 Text("Tilføj tema", textAlign = TextAlign.Center, fontSize = 12.sp)
             }
-            Button(onClick = { Toast.makeText(localContext, theme.getDescription()[1], Toast.LENGTH_LONG).show() }, shape = CircleShape, colors = ButtonDefaults.buttonColors(backgroundColor = secondaryButtonColor)) {
+            val t = Toast.makeText(localContext, theme.getDescription()[1], Toast.LENGTH_LONG)
+            Button(onClick = { t.setGravity(Gravity.FILL_HORIZONTAL, 0, 0); t.show() }, shape = CircleShape, colors = ButtonDefaults.buttonColors(backgroundColor = secondaryButtonColor)) {
                 Text("Læs mere", textAlign = TextAlign.Center, fontSize = 12.sp)
             }
         }

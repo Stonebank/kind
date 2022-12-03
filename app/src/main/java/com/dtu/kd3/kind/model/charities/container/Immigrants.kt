@@ -14,7 +14,7 @@ class Immigrants : Theme {
     }
 
     override fun getDescription(): Array<String> {
-        return arrayOf("Hjælp udlændingerne ved at give dem en god start", "Eksempel description...")
+        return arrayOf("Hjælp udlændingerne ved at give dem en god start", "Udlændinge-velgørenheder: 'Folkekirkens Nødhjælp', 'Dansk Flygtningehjælp'")
     }
 
 }

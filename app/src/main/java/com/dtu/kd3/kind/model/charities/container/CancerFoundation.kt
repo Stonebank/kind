@@ -14,7 +14,7 @@ class CancerFoundation : Theme {
     }
 
     override fun getDescription(): Array<String> {
-        return arrayOf("Bidrag til research for at knække cancer", "Eksempel description...")
+        return arrayOf("Bidrag til research for at knække cancer", "Cancer-velgørenheder: 'Kræftens Bekæmpelse', 'Cancerfonden'")
     }
 
 }

@@ -18,7 +18,7 @@ class Health : Theme {
     }
 
     override fun getDescription(): Array<String> {
-        return arrayOf("Hjælp de udsatte med psykiske udfordringer", "Eksempel description...")
+        return arrayOf("Hjælp de udsatte med psykiske udfordringer", "Sundhed-velgørenheder: 'Læger Uden Grænser', 'Red Barnet")
     }
 
 }
