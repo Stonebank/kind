@@ -4,9 +4,10 @@ import com.dtu.kd3.kind.model.charities.Category
 import com.dtu.kd3.kind.model.charities.Theme
 
 /**
- * author: s205409 - Hassan Kassem
+ * @author s205409 - Hassan K
+ *
+ * Contributors: s205430 - Muaz Ahmed
  */
-
 
 class Social : Theme {
 

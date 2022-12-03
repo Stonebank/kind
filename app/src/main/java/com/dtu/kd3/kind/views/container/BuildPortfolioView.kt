@@ -39,6 +39,10 @@ import java.util.*
 
 /**
  * author s205409 - Hassan Kassem
+ *
+ * Contributors:
+ *  - s205409 - Muaz Ahmed
+ *
  */
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
