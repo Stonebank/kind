@@ -1,41 +1,37 @@
 package com.dtu.kd3.kind.views.container
 
-import android.annotation.SuppressLint
-import android.content.Context
-import android.view.Gravity
 import android.widget.Toast
-import androidx.compose.foundation.*
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.rememberLazyGridState
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
+import androidx.compose.material.Surface
+import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.dtu.kd3.kind.R
-import com.dtu.kd3.kind.controller.BottomNavigation
 import com.dtu.kd3.kind.model.UserViewModel
-import com.dtu.kd3.kind.ui.theme.buttonColor
-import com.dtu.kd3.kind.ui.theme.secondaryButtonColor
-import com.dtu.kd3.kind.ui.theme.secondaryColor
-import com.dtu.kd3.kind.ui.theme.titleColor
 import com.dtu.kd3.kind.model.charities.Theme
 import com.dtu.kd3.kind.model.charities.ThemeManager
-import com.dtu.kd3.kind.views.ComposableView
-import java.util.*
+
 
 /**
  * author s205409 - Hassan Kassem
@@ -45,67 +41,81 @@ import java.util.*
  *
  */
 
-@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
+
 @Composable
 fun ShowBuildPortFolioView(navController: NavController, userViewModel: UserViewModel) {
-    var refresh by rememberSaveable { mutableStateOf(false) }
-    val localContext = LocalContext.current
-    Scaffold(bottomBar = { BottomNavigation(navController = navController) }) {
-        Surface(modifier = Modifier.fillMaxWidth()) {
-            Column(modifier = Modifier
-                .background(secondaryColor)
-                .padding(24.dp)
-                .verticalScroll(rememberScrollState())
-                .fillMaxSize(), verticalArrangement = Arrangement.spacedBy(16.dp, alignment = Alignment.Bottom), horizontalAlignment = Alignment.CenterHorizontally) {
-                Row(modifier = Modifier
-                    .background(secondaryColor)
-                    .fillMaxWidth()) {
-                    Image(modifier = Modifier.clickable { navController.navigate(ComposableView.PortfolioView.route) }, painter = painterResource(id = R.drawable.ic_baseline_arrow_back_24), contentDescription = "")
-                    Text(modifier = Modifier.padding(start = 24.dp), text = "Byg din portefølje", color = titleColor, fontWeight = FontWeight.Bold, fontSize = 22.sp, textAlign = TextAlign.Center)
-                }
-                if (userViewModel.subscribed.size == ThemeManager.instance.theme.size) {
-                    Text(text = "Vi takker dig for din hjælp. Der er ikke flere velgørenhedsmål at vælge imellem", color = Color.Black, fontSize = 16.sp)
-                    return@Column
-                }
-                Text(text = "Opbyg din helt egen personlige portfølje", color = Color.Black, fontSize = 16.sp)
-                for (theme in ThemeManager.instance.theme) {
-                    if (userViewModel.subscribed.contains(theme))
-                        continue
-                    ThemeCard(userViewModel = userViewModel, theme = theme, localContext = localContext)
-                    refresh = !refresh
-                }
+    val gridState = rememberLazyGridState()
+    var refresh by remember { mutableStateOf(false) }
+    Surface(modifier = Modifier.fillMaxSize()) {
+        Column(modifier = Modifier
+            .fillMaxSize()
+            .padding(start = 20.dp)) {
+            Spacer(modifier = Modifier.height(10.dp))
+            IconButton(onClick = { navController.popBackStack() }) {
+                Icon(Icons.Default.ArrowBack, contentDescription = "")
             }
+            Text(if (isSupportingAll(userViewModel)) "Tak for din støtte!" else "Byg dit portfølje", color = Color.Black, fontWeight = FontWeight.Bold, fontSize = 30.sp)
+            Text(if (isSupportingAll(userViewModel)) "Tusind tak din støtte. Vi tilføjer flere temaer løbende!" else "Find adskillige af velgørenhedstemaer og vælg dem du ønsker at støtte", color = Color.Black.copy(0.5f), fontWeight = FontWeight.Bold, fontSize = 14.sp)
+            LazyVerticalGrid(
+                columns = GridCells.Adaptive(128.dp),
+                contentPadding = PaddingValues(
+                    start = 12.dp,
+                    top = 16.dp,
+                    end = 12.dp,
+                    bottom = 16.dp
+                ),
+                content = {
+                    items(ThemeManager.instance.theme.size) { index ->
+                        ThemeManager.instance.theme[index].let { theme ->
+                            if (userViewModel.subscribed.contains(theme))
+                                return@let
+                            ThemeCard(userViewModel, theme)
+                            refresh = !refresh
+                        }
+                    }
+                }, state = gridState
+            )
         }
     }
 }
 
 @Composable
-fun ThemeCard(userViewModel: UserViewModel, theme: Theme, localContext: Context) {
-    Box(modifier = Modifier
-        .width(250.dp)
-        .height(220.dp)
-        .background(secondaryColor)
-        .shadow(1.5.dp, shape = RectangleShape)) {
-        Text(text = theme.getName().uppercase(Locale.ROOT), color = titleColor, fontWeight = FontWeight.SemiBold, fontSize = 18.sp, modifier = Modifier.padding(horizontal = 10.dp, vertical = 10.dp))
-        Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
-            Text(text = theme.getDescription()[0].replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.ROOT) else it.toString() }, color = Color.Black, fontWeight = FontWeight.SemiBold, fontSize = 18.sp,
-                textAlign = TextAlign.Center)
+fun ThemeCard(userViewModel: UserViewModel, theme: Theme) {
+    val localContext = LocalContext.current
+    Box(
+        modifier = Modifier
+            .width(500.dp)
+            .height(200.dp)
+            .padding(8.dp)
+            .clip(RoundedCornerShape(10.dp))
+            .background(Color.Black)
+    ) {
+        Image(painter = painterResource(id = theme.getImage()), contentDescription = "image", contentScale = ContentScale.Crop, modifier = Modifier
+            .widthIn(500.dp, 500.dp)
+            .heightIn(200.dp, 200.dp),  colorFilter = ColorFilter.tint(Color.Black.copy(alpha = 0.2f), blendMode = BlendMode.Darken))
+        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
+            IconButton(onClick = {
+                if (userViewModel.subscribed.contains(theme)) {
+                    Toast.makeText(localContext, "${theme.getName()} er allerede i dit portfølje", Toast.LENGTH_SHORT).show()
+                    return@IconButton
+                }
+                userViewModel.addTheme(theme)
+                Toast.makeText(localContext, "${theme.getName()} er blevet tilføjet til dit portfølje", Toast.LENGTH_SHORT).show()
+            }) {
+                Icon(Icons.Default.Add, contentDescription = "", tint = Color.White, modifier = Modifier.size(35.dp))
+            }
         }
-        Row(modifier = Modifier
-            .fillMaxSize()
-            .padding(10.dp, 10.dp), verticalAlignment = Alignment.Bottom, horizontalArrangement = Arrangement.spacedBy(15.dp)) {
-            Button(onClick = {
-                                if (userViewModel.subscribed.contains(theme))
-                                 return@Button
-                                userViewModel.addTheme(theme)
-                                Toast.makeText(localContext, "Du abbonnere nu til ${theme.getName()} temaet", Toast.LENGTH_SHORT).show()
-            }, shape = CircleShape, colors = ButtonDefaults.buttonColors(backgroundColor = buttonColor)) {
-                Text("Tilføj tema", textAlign = TextAlign.Center, fontSize = 12.sp)
-            }
-            val t = Toast.makeText(localContext, theme.getDescription()[1], Toast.LENGTH_LONG)
-            Button(onClick = { t.setGravity(Gravity.FILL_HORIZONTAL, 0, 0); t.show() }, shape = CircleShape, colors = ButtonDefaults.buttonColors(backgroundColor = secondaryButtonColor)) {
-                Text("Læs mere", textAlign = TextAlign.Center, fontSize = 12.sp)
-            }
+        Column(modifier = Modifier.fillMaxSize()) {
+            Text(
+                text = theme.getName(),
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold,
+                color = Color.White,
+                modifier = Modifier.padding(start = 5.dp, top = 130.dp))
         }
     }
+}
+
+fun isSupportingAll(userViewModel: UserViewModel) : Boolean {
+    return userViewModel.subscribed.size == ThemeManager.instance.theme.size
 }

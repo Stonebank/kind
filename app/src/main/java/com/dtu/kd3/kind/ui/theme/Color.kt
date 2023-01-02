@@ -7,13 +7,19 @@ val Purple500 = Color(0xFF6200EE)
 val Purple700 = Color(0xFF3700B3)
 val Teal200 = Color(0xFF03DAC5)
 
+// button color
+val buttonColor = Color(0xFFFCBA04)
+
+// other misc
+val miscColor = Color(0XFF80C1DF)
+
 // #CEDDC8
 val primaryColor = Color(206, 221, 200)
 // F6F8F3
 val secondaryColor = Color(246, 248, 243)
 
 // primary button color
-val buttonColor = Color(136, 198, 120)
+//val buttonColor = Color(136, 198, 120)
 
 // secondary button color
 val secondaryButtonColor = Color(217, 217, 217)

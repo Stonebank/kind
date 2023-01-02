@@ -7,16 +7,16 @@ import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Edit
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -26,64 +26,81 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.dtu.kd3.kind.model.charities.Category
 import com.dtu.kd3.kind.R
-import com.dtu.kd3.kind.controller.BottomNavigation
 import com.dtu.kd3.kind.model.UserViewModel
 import com.dtu.kd3.kind.model.charities.Theme
-import com.dtu.kd3.kind.model.charities.ThemeManager
 import com.dtu.kd3.kind.ui.theme.*
 import com.dtu.kd3.kind.views.ComposableView
 import java.util.*
 import kotlin.math.roundToInt
 
 /**
- * author - s215817 Elias Rajabi
+ * author - s205409 - Hassan Kassem
  *
  * Contributors:
- *  - s205409 - Hassan Kassem
+ *  - s215817 Elias Rajabi
  *
  */
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun ShowPortFolioView(navController: NavController, userViewModel: UserViewModel) {
-    var refresh by rememberSaveable { mutableStateOf(false) }
     val context = LocalContext.current
-    Scaffold(bottomBar = { BottomNavigation(navController = navController) }) {
-        Surface(modifier = Modifier.fillMaxWidth()) {
+    var refresh by remember { mutableStateOf(false) }
+    Scaffold(bottomBar = { com.dtu.kd3.kind.controller.BottomNavigation(navController = navController) }) {
+        Surface(modifier = Modifier.fillMaxSize()) {
             Column(modifier = Modifier
-                .background(secondaryColor)
+                .background(Color.White)
                 .padding(24.dp)
                 .verticalScroll(rememberScrollState())
-                .fillMaxSize(), verticalArrangement = Arrangement.spacedBy(16.dp, alignment = Alignment.Bottom), horizontalAlignment = Alignment.CenterHorizontally) {
-                Text(text = "KD3", color = titleColor, fontWeight = FontWeight.Bold, fontSize = 22.sp)
-                Image(painter = painterResource(id = R.drawable.stock_profile), contentDescription = "profile_picture", contentScale = ContentScale.Crop, modifier = Modifier
-                    .size(120.dp)
-                    .clip(
-                        CircleShape
-                    ))
-                Row(modifier = Modifier.fillMaxHeight(), horizontalArrangement = Arrangement.spacedBy(15.dp)) {
-                    Button(onClick = { navController.navigate(ComposableView.EditProfileView.route)}, colors = ButtonDefaults.buttonColors(backgroundColor = buttonColor), shape = CircleShape) {
-                        Text("Rediger profil")
+                .fillMaxSize()) {
+                Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(10.dp, Alignment.CenterVertically)) {
+                    Text(text = userViewModel.name.value, color = Color.Black, fontSize = 30.sp, fontWeight = FontWeight.Bold)
+                    Row(modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(start = 70.dp, top = 20.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(20.dp, Alignment.CenterHorizontally)) {
+                        RoundedProfileImage(imageID = R.drawable.dtu_logo)
+                        IconButton(onClick = {
+                            Toast.makeText(context, "THIS FEATURE HAS NOT BEEN ADDED YET!", Toast.LENGTH_SHORT).show()
+                        }) {
+                            Icon(Icons.Default.Edit, contentDescription = "edit", tint = Color.Black)
+                        }
                     }
-                    Button(onClick = {
-                                     if (!userViewModel.donator.value) {
-                                         Toast.makeText(context, "Du skal donere et beløb før du kan bygge dit portfølje", Toast.LENGTH_LONG).show()
-                                         return@Button
-                                     }
-                                     navController.navigate(ComposableView.BuildPortfolioView.route)
-                    }, colors = ButtonDefaults.buttonColors(backgroundColor = buttonColor), shape = CircleShape) {
-                        Text("Byg portfølje")
+                    Row(modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 20.dp), horizontalArrangement = Arrangement.SpaceEvenly, verticalAlignment = Alignment.CenterVertically) {
+                        Button(onClick = { navController.navigate(ComposableView.EditProfileView.route)}, colors = ButtonDefaults.buttonColors(backgroundColor = buttonColor), shape = CircleShape) {
+                            Text("Rediger profil")
+                        }
+                        Button(onClick = {
+                            navController.navigate(ComposableView.BuildPortfolioView.route)
+                        }, colors = ButtonDefaults.buttonColors(backgroundColor = buttonColor), shape = CircleShape) {
+                            Text("Byg portfølje")
+                        }
                     }
-                }
-                if (userViewModel.subscribed.isEmpty()) {
-                    Text(text = "Du har ingen portfølje endnu", color = titleColor, fontWeight = FontWeight.Bold, fontSize = 22.sp)
-                    return@Column
-                }
-                for (theme in userViewModel.subscribed) {
-                    SubscribedCards(userViewModel, theme, context)
-                    refresh = !refresh
+                    Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterVertically), horizontalAlignment = Alignment.Start) {
+                        Text(
+                            portfolioMessage(userViewModel = userViewModel)[0],
+                            color = Color.Black,
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 26.sp
+                        )
+                        Text(
+                            portfolioMessage(userViewModel = userViewModel)[1],
+                            modifier = Modifier.padding(start = 5.dp),
+                            color = Color.Black.copy(0.5f),
+                            fontSize = 14.sp,
+                        )
+                        if (userViewModel.subscribed.isNotEmpty()) {
+                            userViewModel.subscribed.forEach { theme -> SubscribedCards(
+                                userViewModel = userViewModel,
+                                theme = theme,
+                                context = context
+                            )
+                            refresh = !refresh
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -96,10 +113,12 @@ fun SubscribedCards(userViewModel: UserViewModel, theme: Theme, context: Context
         .height(100.dp)
         .background(secondaryColor)
         .shadow(1.5.dp, shape = RectangleShape)) {
+        Image(painter = painterResource(id = theme.getImage()), contentDescription = "image", contentScale = ContentScale.Crop, modifier = Modifier
+            .fillMaxWidth().heightIn(100.dp, 100.dp),  colorFilter = ColorFilter.tint(Color.Black.copy(alpha = 0.2f), blendMode = BlendMode.Darken))
         Row(modifier = Modifier
             .fillMaxSize()
             .padding(10.dp, 10.dp), verticalAlignment = Alignment.Bottom, horizontalArrangement = Arrangement.spacedBy(15.dp)) {
-            Text(text = theme.getName().uppercase(Locale.ROOT), textAlign = TextAlign.Start, color = titleColor, fontWeight = FontWeight.SemiBold, fontSize = 18.sp, modifier = Modifier.padding(horizontal = 10.dp, vertical = 10.dp))
+            Text(text = theme.getName().uppercase(Locale.ROOT), textAlign = TextAlign.Start, color = Color.White, fontWeight = FontWeight.Bold, fontSize = 18.sp, modifier = Modifier.padding(horizontal = 10.dp, vertical = 10.dp))
             Spacer(modifier = Modifier
                 .weight(1f)
                 .fillMaxWidth())
@@ -107,7 +126,7 @@ fun SubscribedCards(userViewModel: UserViewModel, theme: Theme, context: Context
             Icon(
                 painter = painterResource(id = R.drawable.ic_baseline_delete_24),
                 contentDescription = "delete",
-                tint = titleColor,
+                tint = Color.White,
                 modifier = Modifier.clickable(onClick = {
                     userViewModel.removeTheme(theme)
                     Toast.makeText(context, "Du har fjernet ${theme.getName()} fra din portfølje", Toast.LENGTH_LONG).show()
@@ -115,4 +134,33 @@ fun SubscribedCards(userViewModel: UserViewModel, theme: Theme, context: Context
             )
         }
     }
+}
+
+@Composable
+fun RoundedProfileImage(imageID: Int) {
+    Image(
+        painter = painterResource(id = imageID),
+        contentDescription = "Profile Image",
+        modifier = Modifier
+            .size(100.dp)
+            .clip(CircleShape)
+            .border(2.dp, Color.Transparent, CircleShape)
+    )
+}
+
+fun portfolioMessage(userViewModel: UserViewModel) : List<String> {
+    val message = mutableListOf<String>()
+    if (userViewModel.subscribed.isNotEmpty() && !userViewModel.donator.value) {
+        message.add("Oversigt")
+        message.add("Du har valgt ${userViewModel.subscribed.size} forskellige temaer. Abonnere nu for at støtte dem!")
+        return message
+    }
+    if (userViewModel.subscribed.isNotEmpty() && userViewModel.donator.value) {
+        message.add("Oversigt")
+        message.add("Du kan til enhver tid stoppe med at støtte dine valgte temaer. Nye temeaer vil først blive trukket den første i hver måned.")
+        return message
+    }
+    message.add("Du har ingen portfølje endnu")
+    message.add("Byg dit portfølje ved at abonnere med et beløb og derefter vælge en af mange velgørende organisationer.")
+    return message
 }

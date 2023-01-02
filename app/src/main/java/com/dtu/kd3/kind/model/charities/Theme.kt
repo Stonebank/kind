@@ -12,4 +12,6 @@ interface Theme {
     fun getName(): String
     fun getDescription(): Array<String>
 
+    fun getImage(): Int
+
 }

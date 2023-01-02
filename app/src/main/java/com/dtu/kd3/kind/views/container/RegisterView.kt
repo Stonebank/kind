@@ -2,7 +2,6 @@ package com.dtu.kd3.kind.views.container
 
 import TextInput
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
@@ -10,9 +9,6 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
@@ -26,19 +22,12 @@ import com.dtu.kd3.kind.R
 import com.dtu.kd3.kind.input.TextInputType
 import com.dtu.kd3.kind.model.UserViewModel
 import com.dtu.kd3.kind.ui.theme.buttonColor
-import com.dtu.kd3.kind.ui.theme.primaryColor
 import com.dtu.kd3.kind.ui.theme.secondaryColor
 import com.dtu.kd3.kind.views.ComposableView
 
 /**
  * @author s205409 - Hassan Kassem
  *
- * @TODO:
- *
- *  - Email regex
- *  - Email and confirm email matches
- *  - Password and confirm password matches
- *  - Password requirements
  *
  *
  */
@@ -49,11 +38,10 @@ fun ShowRegisterView(navController: NavController, userViewModel: UserViewModel)
     val passwordFocusRequester = FocusRequester()
     val focusManager = LocalFocusManager.current
 
-    userViewModel.setName("KD3")
+    userViewModel.setName("Hassan")
 
     Surface(modifier = Modifier.fillMaxWidth()) {
         Column(modifier = Modifier
-            .background(primaryColor)
             .padding(24.dp)
             .verticalScroll(rememberScrollState())
             .fillMaxSize(), verticalArrangement = Arrangement.spacedBy(16.dp, alignment = Alignment.Bottom), horizontalAlignment = Alignment.CenterHorizontally) {
@@ -71,7 +59,7 @@ fun ShowRegisterView(navController: NavController, userViewModel: UserViewModel)
                 FocusDirection.Next) }))
             TextInput("Bekræft kodeord", TextInputType.Password, keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() }), focusRequester = passwordFocusRequester)
             Button(onClick = { navController.navigate(route = ComposableView.HomeView.route) }, shape = CircleShape, colors = ButtonDefaults.buttonColors(backgroundColor = buttonColor), modifier = Modifier.fillMaxWidth()) {
-                Text("Opret bruger", Modifier.padding(vertical = 8.dp), color = Color.White)
+                Text("Opret bruger", Modifier.padding(vertical = 8.dp), color = Color.Black)
             }
             Divider(color = Color.White.copy(alpha = 0.3f), thickness = 2.dp, modifier = Modifier.padding(24.dp))
             Row(verticalAlignment = Alignment.CenterVertically) {
@@ -81,5 +69,5 @@ fun ShowRegisterView(navController: NavController, userViewModel: UserViewModel)
             }
         }
     }
-
 }
+

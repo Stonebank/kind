@@ -13,6 +13,5 @@ enum class Category {
     HEALTH,
     ENVIRONMENT,
     IMMIGRANTS,
-    KNEKCANCER
 
 }

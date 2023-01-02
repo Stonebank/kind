@@ -1,5 +1,6 @@
 package com.dtu.kd3.kind.model.charities.container
 
+import com.dtu.kd3.kind.R
 import com.dtu.kd3.kind.model.charities.Category
 import com.dtu.kd3.kind.model.charities.Theme
 
@@ -21,6 +22,10 @@ class Immigrants : Theme {
 
     override fun getDescription(): Array<String> {
         return arrayOf("Hjælp udlændingerne ved at give dem en god start", "Udlændinge-velgørenheder: 'Folkekirkens Nødhjælp', 'Dansk Flygtningehjælp'")
+    }
+
+    override fun getImage(): Int {
+        return R.drawable.immigrants
     }
 
 }

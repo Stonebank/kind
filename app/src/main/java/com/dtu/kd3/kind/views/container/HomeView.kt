@@ -1,102 +1,64 @@
 package com.dtu.kd3.kind.views.container
 
 import android.annotation.SuppressLint
-import androidx.compose.foundation.background
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RectangleShape
-import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalUriHandler
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.dtu.kd3.kind.R
 import com.dtu.kd3.kind.model.UserViewModel
-import com.dtu.kd3.kind.ui.theme.primaryColor
+import com.dtu.kd3.kind.ui.theme.buttonColor
 import com.dtu.kd3.kind.ui.theme.secondaryColor
-import com.dtu.kd3.kind.ui.theme.titleColor
+import com.dtu.kd3.kind.utility.DummyNews
 import com.dtu.kd3.kind.views.ComposableView
 import java.util.*
 
 /**
  * @author s205409 - Hassan K
  *
- * Passing argument email is temporarily since this application has no real functionality and is just for demonstration. Argument should be a name instead.
  *
  */
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun ShowHomeView(navController: NavController, userViewModel: UserViewModel) {
-    val configuration = LocalConfiguration.current
-    val splitHeight = (configuration.screenHeightDp / 2).dp
-
-    Scaffold(bottomBar = { com.dtu.kd3.kind.controller.BottomNavigation(navController = navController) }) {
-        Surface(modifier = Modifier.fillMaxWidth()) {
-            Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.spacedBy(10.dp, alignment = Alignment.Top), horizontalAlignment = Alignment.End) {
-                Box(modifier = Modifier
-                    .background(primaryColor)
-                    .height(height = splitHeight)
-                    .verticalScroll(rememberScrollState())
-                    .fillMaxWidth()) {
-                    Text("Hej ${userViewModel.name.value}",
-                        Modifier
-                            .padding(vertical = 10.dp)
-                            .padding(horizontal = 10.dp), color = Color.Black, fontWeight = FontWeight.Bold, fontSize = 18.sp)
-                    Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.spacedBy(15.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-                        if (userViewModel.donator.value) {
-                            Text(
-                                "Dit abonnement er på plads og du er on track til at donere ${userViewModel.donated.value.toInt()} kr.",
-                                color = Color.Black,
-                                fontWeight = FontWeight.Bold,
-                                fontSize = 24.sp,
-                                modifier = Modifier
-                                    .padding(vertical = 50.dp)
-                                    .padding(horizontal = 10.dp)
-                            )
-                            Text(
-                                "Du er blandt 1% af top donerer i denne måned. Godt gået!",
-                                color = Color.Black,
-                                fontWeight = FontWeight.Bold,
-                                fontSize = 18.sp,
-                                modifier = Modifier
-                                    .padding(vertical = 150.dp)
-                                    .padding(horizontal = 10.dp)
-                            )
-                        } else {
-                            Text(
-                                "Vi mangler din hjælp! Start med at donere i dag ved at trykke på knappen nedenunder",
-                                color = Color.Black,
-                                fontWeight = FontWeight.Bold,
-                                fontSize = 24.sp,
-                                modifier = Modifier
-                                    .padding(vertical = 50.dp)
-                                    .padding(horizontal = 10.dp)
-                            )
-                        }
-                        Button(onClick = {
-                            navController.navigate(route = ComposableView.SetDonationView.route)
-                            //userViewModel.setDonator(true)
-                            /*userViewModel.setDonation((50..1000).random().toDouble())*/}, shape = CircleShape, colors = ButtonDefaults.buttonColors(
-                            Color.Green)) {
-                            Text("Start", fontSize = 16.sp, fontWeight = FontWeight.Bold)
-                        }
-                    }
+    Scaffold(bottomBar = { com.dtu.kd3.kind.controller.BottomNavigation(navController = navController) }, modifier = Modifier.fillMaxSize()) {
+        Surface(modifier = Modifier.fillMaxSize()) {
+            Column(modifier = Modifier
+                .fillMaxSize()
+                .verticalScroll(rememberScrollState())
+                .padding(start = 20.dp), verticalArrangement = Arrangement.spacedBy(5.dp, alignment = Alignment.Top)) {
+                HomeTitle(userViewModel = userViewModel, navController = navController)
+                FeaturedSection()
+                Row(modifier = Modifier
+                    .fillMaxWidth()
+                    .horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.SpaceEvenly) {
+                    FeaturedCard(title = "Abonnere for at støtte de sociale udsatte", tags = listOf("Sult", "Fattigdom", "Børn", "Familie"), image = R.drawable.featured_charity)
+                    FeaturedCard(title = "Abonnere for at bekæmpe COVID19 med vaccinationer", tags = listOf("Sygdom", "COVID19", "Corona"), image = R.drawable.featured_charity_2)
                 }
-                Column(modifier = Modifier
-                    .fillMaxSize()
-                    .verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.spacedBy(15.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-                    UpdateCard(title = "Rød kors", description = "Eksempel update....")
-                    UpdateCard(title = "Europa", description = "Mange mangler hjælp...")
-                    UpdateCard(title = "Udlændinge", description = "Et eller andet relevant")
+                Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.SpaceEvenly) {
+                    NewsSection()
+                    for (news in DummyNews.values()) {
+                        NewsCard(title = news.title, description = news.description, url = news.url, image = news.image)
+                    }
                 }
             }
         }
@@ -104,16 +66,177 @@ fun ShowHomeView(navController: NavController, userViewModel: UserViewModel) {
 }
 
 @Composable
-fun UpdateCard(title: String, description: String) {
-    Box(modifier = Modifier
-        .width(250.dp)
-        .height(220.dp)
-        .background(secondaryColor)
-        .shadow(1.5.dp, shape = RectangleShape)) {
-        Text(text = title.uppercase(Locale.ROOT), color = titleColor, fontWeight = FontWeight.SemiBold, fontSize = 18.sp, modifier = Modifier.padding(horizontal = 10.dp, vertical = 10.dp))
-        Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
-            Text(text = description.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.ROOT) else it.toString() }, color = Color.Black, fontWeight = FontWeight.SemiBold, fontSize = 18.sp,
-                textAlign = TextAlign.Center)
+fun HomeTitle(userViewModel: UserViewModel, navController: NavController) {
+    Spacer(modifier = Modifier.height(10.dp))
+    Text("Hej ${userViewModel.name.value}", fontSize = 30.sp, fontWeight = FontWeight.Bold, color = Color.Black)
+    Text("${if (userViewModel.donator.value) "Dit abonnement på ${userViewModel.donated.value.toInt()} kr. er sat op! Vi takker for at du vil være med til at gøre en forskel." else "Med kun 50 kr. kan du gøre en forskel for en person i nød. "} ", fontSize = 16.sp, fontWeight = FontWeight.Bold, color = Color.Black.copy(alpha = 0.5f), modifier = Modifier.padding(end = 10.dp))
+    if (!userViewModel.donator.value) {
+        Button(onClick = {
+                            navController.navigate(route = ComposableView.SetDonationView.route)
+        }, colors = ButtonDefaults.buttonColors(buttonColor)) {
+            Text("Abonner nu", fontSize = 16.sp, fontWeight = FontWeight.Bold, color = Color.Black, textAlign = TextAlign.Center)
         }
     }
+
+}
+
+@Composable
+fun NewsSection() {
+    Spacer(modifier = Modifier.height(30.dp))
+    Row(modifier = Modifier
+        .fillMaxWidth()
+        .padding(end = 10.dp)) {
+        Text("Nyheder", fontSize = 16.sp, fontWeight = FontWeight.Bold, color = Color.Black)
+    }
+}
+
+@Composable
+fun FeaturedSection() {
+    
+    Spacer(modifier = Modifier.height(30.dp))
+    Row(modifier = Modifier
+        .fillMaxWidth()
+        .padding(end = 10.dp)) {
+        Text("Dagens udvalgte temaer", fontSize = 16.sp, fontWeight = FontWeight.Bold, color = Color.Black)
+    }
+    
+}
+
+@Composable
+fun NewsCard(title: String, description: String, url: String, image: Int) {
+    val uriHandler = LocalUriHandler.current
+    Spacer(modifier = Modifier.height(20.dp))
+    Row(modifier = Modifier
+        .fillMaxSize()
+        .padding(end = 10.dp, bottom = 70.dp), horizontalArrangement = Arrangement.Center, verticalAlignment = Alignment.CenterVertically) {
+        Column(modifier = Modifier
+            .size(350.dp, 450.dp)
+            .shadow(elevation = 10.dp)) {
+            Box(modifier = Modifier
+                .width(350.dp)
+                .height(450.dp)
+                .clip(RoundedCornerShape(10.dp))
+                .background(secondaryColor)) {
+                Image(painter = painterResource(id = image), contentDescription = "image", contentScale = ContentScale.Crop, modifier = Modifier
+                    .widthIn(350.dp, 350.dp)
+                    .heightIn(250.dp, 250.dp),  colorFilter = ColorFilter.tint(Color.Black.copy(alpha = 0.2f), blendMode = BlendMode.Darken))
+                Row(modifier = Modifier.fillMaxSize(), horizontalArrangement = Arrangement.End) {
+                    Image(
+                        painter = painterResource(id = R.drawable.ic_baseline_ios_share_24),
+                        contentDescription = "",
+                        modifier = Modifier
+                            .size(40.dp, 40.dp)
+                            .padding(top = 10.dp, end = 10.dp)
+                            .clickable { /* TODO */ }, colorFilter = ColorFilter.tint(Color.White))
+                }
+                Column(modifier = Modifier.fillMaxSize()) {
+                    Text(
+                        text = title,
+                        fontSize = 20.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = Color.White,
+                        modifier = Modifier.padding(start = 20.dp, top = 180.dp),
+
+                        )
+                    Column(modifier = Modifier
+                        .fillMaxSize()
+                        .padding(start = 10.dp, top = 20.dp), verticalArrangement = Arrangement.spacedBy(15.dp)) {
+                        Text(text = description, modifier = Modifier.padding(top = 40.dp), fontSize = 16.sp, color = Color.Black.copy(0.5f), maxLines = 2, overflow = TextOverflow.Ellipsis)
+                        Row(modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(top = 40.dp)) {
+                            Button(onClick = {
+                                uriHandler.openUri(url)
+                            }, colors = ButtonDefaults.buttonColors(buttonColor), elevation = null) {
+                                Text("Læs mere", fontSize = 16.sp, fontWeight = FontWeight.SemiBold, color = Color.Black, textAlign = TextAlign.Center)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun FeaturedCard(title: String, tags: List<String>, image: Int) {
+    var subscribers by remember { mutableStateOf((1..10_000).random()) }
+    Row(modifier = Modifier
+        .fillMaxSize()
+        .padding(end = 10.dp), horizontalArrangement = Arrangement.Center, verticalAlignment = Alignment.CenterVertically) {
+        Column(modifier = Modifier
+            .size(350.dp, 450.dp)
+            .shadow(elevation = 10.dp)) {
+            Box(modifier = Modifier
+                .width(350.dp)
+                .height(450.dp)
+                .clip(RoundedCornerShape(10.dp))
+                .background(secondaryColor)) {
+                Image(painter = painterResource(id = image), contentDescription = "image", contentScale = ContentScale.Crop, modifier = Modifier
+                    .widthIn(350.dp, 350.dp)
+                    .heightIn(250.dp, 250.dp),  colorFilter = ColorFilter.tint(Color.Black.copy(alpha = 0.2f), blendMode = BlendMode.Darken))
+                Row(modifier = Modifier.fillMaxSize(), horizontalArrangement = Arrangement.End) {
+                    Image(
+                        painter = painterResource(id = R.drawable.ic_baseline_ios_share_24),
+                        contentDescription = "",
+                        modifier = Modifier
+                            .size(40.dp, 40.dp)
+                            .padding(top = 10.dp, end = 10.dp)
+                            .clickable { /* TODO */ }, colorFilter = ColorFilter.tint(Color.White))
+                }
+                Column(modifier = Modifier.fillMaxSize()) {
+                    Text(
+                        text = title,
+                        fontSize = 20.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = Color.White,
+                        modifier = Modifier.padding(start = 20.dp, top = 180.dp),
+
+                    )
+                    Column(modifier = Modifier
+                        .fillMaxSize()
+                        .padding(start = 10.dp, top = 20.dp), verticalArrangement = Arrangement.spacedBy(15.dp)) {
+                        Row(modifier = Modifier.fillMaxWidth()) {
+                            TagCard(tags = tags)
+                        }
+                        Text(text = "$subscribers abonnenter", fontSize = 30.sp, fontWeight = FontWeight.Bold, color = Color.Black)
+                        Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceEvenly) {
+                            Button(onClick = {
+                                             subscribers++
+                            }, colors = ButtonDefaults.buttonColors(buttonColor), elevation = null) {
+                                Text("Abonnere", fontSize = 16.sp, fontWeight = FontWeight.SemiBold, color = Color.Black, textAlign = TextAlign.Center)
+                            }
+                            Button(onClick = {
+
+                            }, colors = ButtonDefaults.buttonColors(buttonColor), elevation = null) {
+                                Text("Læs mere", fontSize = 16.sp, fontWeight = FontWeight.SemiBold, color = Color.Black, textAlign = TextAlign.Center)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun TagCard(tags: List<String>) {
+    Row(modifier = Modifier
+        .fillMaxWidth()
+        .padding(start = 10.dp, top = 10.dp), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+        for (i in 0.. tags.size) {
+            if (i > 1) {
+                val restAmount = tags.size - 2
+                Text("+$restAmount", fontSize = 14.sp, textAlign = TextAlign.Center, fontWeight = FontWeight.Bold, color = Color.Gray, modifier = Modifier
+                    .background(Color.Gray.copy(alpha = 0.2f), shape = CircleShape)
+                    .padding(5.dp))
+                break
+            }
+            Text(
+                tags[i], fontSize = 14.sp, textAlign = TextAlign.Center, fontWeight = FontWeight.Bold, color = Color.Gray, modifier = Modifier
+                    .background(Color.Gray.copy(alpha = 0.2f), shape = RoundedCornerShape(10.dp))
+                    .padding(5.dp))
+        }
+    }
+
 }

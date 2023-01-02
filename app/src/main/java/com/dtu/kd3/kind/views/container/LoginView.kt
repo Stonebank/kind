@@ -2,7 +2,6 @@ package com.dtu.kd3.kind.views.container
 
 import TextInput
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.KeyboardActions
@@ -21,8 +20,7 @@ import com.dtu.kd3.kind.R
 import com.dtu.kd3.kind.input.TextInputType
 import com.dtu.kd3.kind.model.UserViewModel
 import com.dtu.kd3.kind.ui.theme.buttonColor
-import com.dtu.kd3.kind.ui.theme.primaryColor
-import com.dtu.kd3.kind.ui.theme.secondaryColor
+import com.dtu.kd3.kind.ui.theme.miscColor
 import com.dtu.kd3.kind.views.ComposableView
 
 
@@ -46,11 +44,10 @@ fun ShowLoginView(navController: NavController, userViewModel: UserViewModel) {
     val passwordFocusRequester = FocusRequester()
     val focusManager = LocalFocusManager.current
 
-    userViewModel.setName("KD3")
+    userViewModel.setName("Hassan")
 
     Surface(modifier = Modifier.fillMaxWidth()) {
         Column(modifier = Modifier
-            .background(primaryColor)
             .padding(24.dp)
             .fillMaxSize(), verticalArrangement = Arrangement.spacedBy(16.dp, alignment = Alignment.Bottom), horizontalAlignment = Alignment.CenterHorizontally) {
             Image(painter = painterResource(id = R.drawable.logo), contentDescription = "kd3_logo",
@@ -60,14 +57,14 @@ fun ShowLoginView(navController: NavController, userViewModel: UserViewModel) {
             TextInput(TextInputType.Email, keyboardActions = KeyboardActions(onNext = { passwordFocusRequester.requestFocus() }))
             TextInput(TextInputType.Password, keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() }), focusRequester = passwordFocusRequester)
             Button(onClick = { navController.navigate(route = ComposableView.HomeView.route) }, shape = CircleShape, colors = ButtonDefaults.buttonColors(backgroundColor = buttonColor), modifier = Modifier.fillMaxWidth()) {
-                Text("Log ind", Modifier.padding(vertical = 8.dp), color = Color.White)
+                Text("Log ind", Modifier.padding(vertical = 8.dp), color = Color.Black)
             }
             TextButton(onClick = { /*TODO*/ }, modifier = Modifier.align(Alignment.End)) {
                 Text("Glemt adgangskode?", color = Color.Black, fontSize = 12.sp)
             }
             Divider(color = Color.White.copy(alpha = 0.3f), thickness = 2.dp, modifier = Modifier.padding(24.dp))
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Button(onClick = { navController.navigate( ComposableView.RegisterView.route ) }, shape = CircleShape, colors = ButtonDefaults.buttonColors(backgroundColor = secondaryColor), modifier = Modifier.fillMaxWidth()) {
+                Button(onClick = { navController.navigate( ComposableView.RegisterView.route ) }, shape = CircleShape, colors = ButtonDefaults.buttonColors(backgroundColor = miscColor), modifier = Modifier.fillMaxWidth()) {
                     Text("Opret en bruger")
                 }
             }
