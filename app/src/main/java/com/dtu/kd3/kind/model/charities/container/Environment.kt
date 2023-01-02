@@ -20,8 +20,12 @@ class Environment : Theme {
         return "MILJØ"
     }
 
-    override fun getDescription(): Array<String> {
-        return arrayOf("Bidrag med at forbedre miljøet", "Miljø-velgørenheder: 'Julemærkefonden', 'Dansk Naturfredningsforening'")
+    override fun getOrganisations(): Array<String> {
+        return arrayOf("Julemærkefonden", "Dansk Naturfredningsforening")
+    }
+
+    override fun getDescription(): String {
+        return "De fysiske omgivelser og betingelser som mennesker, dyr og planter lever under med gensidig påvirkning. Miljøet er altså de omgivelser vi lever i, både naturlige og menneskeskabte, som mennesker, dyr og planter er med til at påvirke. Påvirkningen kan eksempelvis ske ved, at mennesker fælder træer, dræner jorden eller bygger på den, mens dyr og insekter spiser og bestøver planterne, som vokser og dør og giver næring til jorden og levesteder til dyr og insekter. Miljøproblemer kan eksempelvis være luftforurening, iltsvind i hav og fjorde, tab af biodiversitet, kemisk forurening af jorden og forurening af grundvand med pesticider og andre sprøjtegifte."
     }
 
     override fun getImage(): Int {

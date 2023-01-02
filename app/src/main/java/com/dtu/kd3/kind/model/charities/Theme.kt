@@ -10,8 +10,8 @@ interface Theme {
     fun getCategory(): Category
 
     fun getName(): String
-    fun getDescription(): Array<String>
+    fun getDescription(): String
 
+    fun getOrganisations(): Array<String>
     fun getImage(): Int
-
 }

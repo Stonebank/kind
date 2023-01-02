@@ -20,8 +20,12 @@ class Health : Theme {
         return "SUNDHED"
     }
 
-    override fun getDescription(): Array<String> {
-        return arrayOf("Hjælp de udsatte med psykiske udfordringer", "Sundhed-velgørenheder: 'Læger Uden Grænser', 'Red Barnet")
+    override fun getOrganisations(): Array<String> {
+        return arrayOf("Læger Uden Grænser", "Red Barnet")
+    }
+
+    override fun getDescription():String {
+        return "Når man taler om sundhed, kan det altså betale sig at kigge på hele sin livsstil, da alle elementerne her udgør brikker i det store puslespil. Det er dog helt almindeligt, at man opdeler sundhed i den rent fysiske sundhed og den mentale."
     }
 
     override fun getImage(): Int {

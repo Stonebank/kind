@@ -51,8 +51,8 @@ fun ShowHomeView(navController: NavController, userViewModel: UserViewModel) {
                 Row(modifier = Modifier
                     .fillMaxWidth()
                     .horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.SpaceEvenly) {
-                    FeaturedCard(title = "Abonnere for at støtte de sociale udsatte", tags = listOf("Sult", "Fattigdom", "Børn", "Familie"), image = R.drawable.featured_charity)
-                    FeaturedCard(title = "Abonnere for at bekæmpe COVID19 med vaccinationer", tags = listOf("Sygdom", "COVID19", "Corona"), image = R.drawable.featured_charity_2)
+                    FeaturedCard(title = "Abonnere for at støtte de sociale udsatte", tags = listOf("Sult", "Fattigdom", "Børn", "Familie"), image = R.drawable.featured_charity, navController = navController)
+                    FeaturedCard(title = "Abonnere for at bekæmpe COVID19 med vaccinationer", tags = listOf("Sygdom", "COVID19", "Corona"), image = R.drawable.featured_charity_2, navController = navController)
                 }
                 Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.SpaceEvenly) {
                     NewsSection()
@@ -159,7 +159,7 @@ fun NewsCard(title: String, description: String, url: String, image: Int) {
 }
 
 @Composable
-fun FeaturedCard(title: String, tags: List<String>, image: Int) {
+fun FeaturedCard(title: String, tags: List<String>, image: Int, navController: NavController) {
     var subscribers by remember { mutableStateOf((1..10_000).random()) }
     Row(modifier = Modifier
         .fillMaxSize()
@@ -207,7 +207,7 @@ fun FeaturedCard(title: String, tags: List<String>, image: Int) {
                                 Text("Abonnere", fontSize = 16.sp, fontWeight = FontWeight.SemiBold, color = Color.Black, textAlign = TextAlign.Center)
                             }
                             Button(onClick = {
-
+                                navController.navigate(route = ComposableView.ReadMoreView.route)
                             }, colors = ButtonDefaults.buttonColors(buttonColor), elevation = null) {
                                 Text("Læs mere", fontSize = 16.sp, fontWeight = FontWeight.SemiBold, color = Color.Black, textAlign = TextAlign.Center)
                             }

@@ -20,8 +20,13 @@ class Social : Theme {
         return "SOCIAL UDSATTE"
     }
 
-    override fun getDescription(): Array<String> {
-        return arrayOf("Hjælp de hjemløse rundt omkring i Danmark", "SocialUdsatte-velgørenheder: 'Røde Kors', 'Social hjælp', 'Red social'")
+    override fun getOrganisations(): Array<String> {
+        return arrayOf("Børnefonden", "Dansk Flygtningehjælp")
+    }
+
+    override fun getDescription(): String {
+        return "Socialt udsatte voksne omfatter mennesker over 18 år med sociale problemer eller med risiko for at få det. Det drejer sig fx om hjemløshed, misbrug, psykiske lidelser, prostitution eller vold i nære relationer, som giver behov for hjælp efter serviceloven."
+    //return arrayOf("Hjælp de hjemløse rundt omkring i Danmark", "SocialUdsatte-velgørenheder: 'Røde Kors', 'Social hjælp', 'Red social'")
     }
 
     override fun getImage(): Int {
