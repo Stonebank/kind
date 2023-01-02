@@ -78,7 +78,7 @@ fun ShowPortFolioView(navController: NavController, userViewModel: UserViewModel
                             Text("Byg portfølje")
                         }
                     }
-                    Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterVertically), horizontalAlignment = Alignment.Start) {
+                    Column(modifier = Modifier.fillMaxSize().padding(bottom = 50.dp), verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterVertically), horizontalAlignment = Alignment.Start) {
                         Text(
                             portfolioMessage(userViewModel = userViewModel)[0],
                             color = Color.Black,
