@@ -15,6 +15,7 @@ import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -31,6 +32,7 @@ import androidx.navigation.NavController
 import com.dtu.kd3.kind.model.UserViewModel
 import com.dtu.kd3.kind.model.charities.Theme
 import com.dtu.kd3.kind.model.charities.ThemeManager
+import com.dtu.kd3.kind.views.ComposableView
 
 
 /**
@@ -69,7 +71,7 @@ fun ShowBuildPortFolioView(navController: NavController, userViewModel: UserView
                         ThemeManager.instance.theme[index].let { theme ->
                             if (userViewModel.subscribed.contains(theme))
                                 return@let
-                            ThemeCard(userViewModel, theme)
+                            ThemeCard(navController = navController, userViewModel, theme)
                             refresh = !refresh
                         }
                     }
@@ -80,7 +82,7 @@ fun ShowBuildPortFolioView(navController: NavController, userViewModel: UserView
 }
 
 @Composable
-fun ThemeCard(userViewModel: UserViewModel, theme: Theme) {
+fun ThemeCard(navController: NavController, userViewModel: UserViewModel, theme: Theme) {
     val localContext = LocalContext.current
     Box(
         modifier = Modifier
@@ -93,7 +95,12 @@ fun ThemeCard(userViewModel: UserViewModel, theme: Theme) {
         Image(painter = painterResource(id = theme.getImage()), contentDescription = "image", contentScale = ContentScale.Crop, modifier = Modifier
             .widthIn(500.dp, 500.dp)
             .heightIn(200.dp, 200.dp),  colorFilter = ColorFilter.tint(Color.Black.copy(alpha = 0.2f), blendMode = BlendMode.Darken))
-        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
+        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+            IconButton(onClick = {
+                navController.navigate(route = ComposableView.ReadMoreView.passArguments(theme.getName()))
+            }) {
+                Icon(Icons.Default.Info, contentDescription = "", tint = Color.White.copy(0.8f), modifier = Modifier.size(35.dp))
+            }
             IconButton(onClick = {
                 if (userViewModel.subscribed.contains(theme)) {
                     Toast.makeText(localContext, "${theme.getName()} er allerede i dit portfølje", Toast.LENGTH_SHORT).show()
@@ -104,6 +111,7 @@ fun ThemeCard(userViewModel: UserViewModel, theme: Theme) {
             }) {
                 Icon(Icons.Default.Add, contentDescription = "", tint = Color.White, modifier = Modifier.size(35.dp))
             }
+
         }
         Column(modifier = Modifier.fillMaxSize()) {
             Text(

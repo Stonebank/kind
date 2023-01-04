@@ -41,8 +41,13 @@ fun Navigation(userViewModel: UserViewModel) {
         composable(route = ComposableView.SetDonationView.route) {
             ShowSetDonationView(navController = navigationController, userViewModel = userViewModel)
         }
-        composable(route = ComposableView.ReadMoreView.route) {
-            ShowReadMoreView(navController = navigationController, theme = ThemeManager.instance.theme[0])
+        composable(
+            route = ComposableView.ReadMoreView.route + "/{name}", arguments = listOf(navArgument("name") {
+                type = NavType.StringType
+                nullable = true
+            })) {
+                entry ->
+            entry.arguments?.getString("name")?.let { ShowReadMoreView(name = it, navController = navigationController) }
         }
     }
 }

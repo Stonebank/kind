@@ -25,6 +25,8 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.dtu.kd3.kind.R
 import com.dtu.kd3.kind.model.UserViewModel
+import com.dtu.kd3.kind.model.charities.Theme
+import com.dtu.kd3.kind.model.charities.ThemeManager
 import com.dtu.kd3.kind.ui.theme.buttonColor
 import com.dtu.kd3.kind.ui.theme.secondaryColor
 import com.dtu.kd3.kind.utility.DummyNews
@@ -51,8 +53,8 @@ fun ShowHomeView(navController: NavController, userViewModel: UserViewModel) {
                 Row(modifier = Modifier
                     .fillMaxWidth()
                     .horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.SpaceEvenly) {
-                    FeaturedCard(title = "Abonnere for at støtte de sociale udsatte", tags = listOf("Sult", "Fattigdom", "Børn", "Familie"), image = R.drawable.featured_charity, navController = navController)
-                    FeaturedCard(title = "Abonnere for at bekæmpe COVID19 med vaccinationer", tags = listOf("Sygdom", "COVID19", "Corona"), image = R.drawable.featured_charity_2, navController = navController)
+                    FeaturedCard(theme = ThemeManager.instance.getTheme("social udsatte"), title = "Abonnere for at støtte de sociale udsatte", tags = listOf("Sult", "Fattigdom", "Børn", "Familie"), image = R.drawable.featured_charity, navController = navController)
+                    FeaturedCard(theme = ThemeManager.instance.getTheme("sundhed"), title = "Abonnere for at bekæmpe COVID19 med vaccinationer", tags = listOf("Sygdom", "COVID19", "Corona"), image = R.drawable.featured_charity_2, navController = navController)
                 }
                 Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.SpaceEvenly) {
                     NewsSection()
@@ -159,7 +161,7 @@ fun NewsCard(title: String, description: String, url: String, image: Int) {
 }
 
 @Composable
-fun FeaturedCard(title: String, tags: List<String>, image: Int, navController: NavController) {
+fun FeaturedCard(theme: Theme, title: String, tags: List<String>, image: Int, navController: NavController) {
     var subscribers by remember { mutableStateOf((1..10_000).random()) }
     Row(modifier = Modifier
         .fillMaxSize()
@@ -191,7 +193,6 @@ fun FeaturedCard(title: String, tags: List<String>, image: Int, navController: N
                         fontWeight = FontWeight.Bold,
                         color = Color.White,
                         modifier = Modifier.padding(start = 20.dp, top = 180.dp),
-
                     )
                     Column(modifier = Modifier
                         .fillMaxSize()
@@ -207,7 +208,7 @@ fun FeaturedCard(title: String, tags: List<String>, image: Int, navController: N
                                 Text("Abonnere", fontSize = 16.sp, fontWeight = FontWeight.SemiBold, color = Color.Black, textAlign = TextAlign.Center)
                             }
                             Button(onClick = {
-                                navController.navigate(route = ComposableView.ReadMoreView.route)
+                                navController.navigate(route = ComposableView.ReadMoreView.passArguments(theme.getName()))
                             }, colors = ButtonDefaults.buttonColors(buttonColor), elevation = null) {
                                 Text("Læs mere", fontSize = 16.sp, fontWeight = FontWeight.SemiBold, color = Color.Black, textAlign = TextAlign.Center)
                             }

@@ -78,7 +78,8 @@ fun ShowEditProfileView(navController: NavController, userViewModel: UserViewMod
                     }
                 }
                 Column(verticalArrangement = Arrangement.spacedBy(15.dp, Alignment.Bottom), horizontalAlignment = Alignment.CenterHorizontally) {
-                    TextInput(TextInputType.Email, keyboardActions = KeyboardActions(onNext = { focusManager.moveFocus(
+                    val email = TextInputType.Email
+                    TextInput(email, keyboardActions = KeyboardActions(onNext = { focusManager.moveFocus(
                         FocusDirection.Next) }))
                     TextInput("Nuværende kodeord", TextInputType.Password, keyboardActions = KeyboardActions(onNext = { focusManager.moveFocus(
                         FocusDirection.Next) }))
