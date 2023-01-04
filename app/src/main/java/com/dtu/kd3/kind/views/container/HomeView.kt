@@ -122,15 +122,6 @@ fun NewsCard(title: String, description: String, url: String, image: Int) {
                 Image(painter = painterResource(id = image), contentDescription = "image", contentScale = ContentScale.Crop, modifier = Modifier
                     .widthIn(350.dp, 350.dp)
                     .heightIn(250.dp, 250.dp),  colorFilter = ColorFilter.tint(Color.Black.copy(alpha = 0.2f), blendMode = BlendMode.Darken))
-                Row(modifier = Modifier.fillMaxSize(), horizontalArrangement = Arrangement.End) {
-                    Image(
-                        painter = painterResource(id = R.drawable.ic_baseline_ios_share_24),
-                        contentDescription = "",
-                        modifier = Modifier
-                            .size(40.dp, 40.dp)
-                            .padding(top = 10.dp, end = 10.dp)
-                            .clickable { /* TODO */ }, colorFilter = ColorFilter.tint(Color.White))
-                }
                 Column(modifier = Modifier.fillMaxSize()) {
                     Text(
                         text = title,
@@ -177,15 +168,6 @@ fun FeaturedCard(theme: Theme, title: String, tags: List<String>, image: Int, na
                 Image(painter = painterResource(id = image), contentDescription = "image", contentScale = ContentScale.Crop, modifier = Modifier
                     .widthIn(350.dp, 350.dp)
                     .heightIn(250.dp, 250.dp),  colorFilter = ColorFilter.tint(Color.Black.copy(alpha = 0.2f), blendMode = BlendMode.Darken))
-                Row(modifier = Modifier.fillMaxSize(), horizontalArrangement = Arrangement.End) {
-                    Image(
-                        painter = painterResource(id = R.drawable.ic_baseline_ios_share_24),
-                        contentDescription = "",
-                        modifier = Modifier
-                            .size(40.dp, 40.dp)
-                            .padding(top = 10.dp, end = 10.dp)
-                            .clickable { /* TODO */ }, colorFilter = ColorFilter.tint(Color.White))
-                }
                 Column(modifier = Modifier.fillMaxSize()) {
                     Text(
                         text = title,
