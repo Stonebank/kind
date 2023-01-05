@@ -109,6 +109,17 @@ fun ShowPortFolioView(navController: NavController, userViewModel: UserViewModel
 
 @Composable
 fun SubscribedCards(userViewModel: UserViewModel, theme: Theme, context: Context) {
+
+    var dialogVisible by remember { mutableStateOf(false) }
+
+    fun showDialog() {
+        dialogVisible = true
+    }
+
+    fun hideDialog() {
+        dialogVisible = false
+    }
+
     Box(modifier = Modifier
         .height(100.dp)
         .background(secondaryColor)
@@ -123,14 +134,15 @@ fun SubscribedCards(userViewModel: UserViewModel, theme: Theme, context: Context
             modifier = Modifier
                 .align(Alignment.TopEnd)
                 .clickable(onClick = {
-                    userViewModel.removeTheme(theme)
+                    showDialog()
+                    /*userViewModel.removeTheme(theme)
                     Toast
                         .makeText(
                             context,
                             "Du har fjernet ${theme.getName()} fra din portfølje",
                             Toast.LENGTH_LONG
                         )
-                        .show()
+                        .show()*/
                 })
         )
         Row(modifier = Modifier
@@ -151,10 +163,42 @@ fun SubscribedCards(userViewModel: UserViewModel, theme: Theme, context: Context
                 .padding(vertical = 21.dp, horizontal = 4.dp)
                 .size(20.dp)
                 .clickable(onClick = {
-                    Toast.makeText(context, "NOT YET IMPLEMENTED", Toast.LENGTH_LONG).show()
+                    Toast
+                        .makeText(context, "NOT YET IMPLEMENTED", Toast.LENGTH_LONG)
+                        .show()
                 })
         )
     }
+
+    if (dialogVisible) {
+        AlertDialog(
+            onDismissRequest = { hideDialog() },
+            title = { Text(text = "Fjern ${theme.getName()} fra din portfølje?") },
+            text = { Text(text = "Dette vil fjerne ${theme.getName()} fra din portfølje og du vil ikke længere abonnere hos dette tema.") },
+            confirmButton = {
+                Button(onClick = {
+                    userViewModel.removeTheme(theme)
+                    Toast
+                        .makeText(
+                            context,
+                            "Du har fjernet ${theme.getName()} fra din portfølje",
+                            Toast.LENGTH_LONG
+                        )
+                        .show()
+                    hideDialog()
+                }, colors = ButtonDefaults.buttonColors(buttonColor)) {
+                    Text(text = "Fjern")
+                }
+            },
+            dismissButton = {
+                Button(onClick = { hideDialog() }, colors = ButtonDefaults.buttonColors(Color.Green)) {
+                    Text(text = "Fortryd")
+                }
+            }
+        )
+    }
+
+
 }
 
 @Composable
@@ -168,6 +212,7 @@ fun RoundedProfileImage(imageID: Int) {
             .border(2.dp, Color.Transparent, CircleShape)
     )
 }
+
 
 fun portfolioMessage(userViewModel: UserViewModel) : List<String> {
     val message = mutableListOf<String>()
