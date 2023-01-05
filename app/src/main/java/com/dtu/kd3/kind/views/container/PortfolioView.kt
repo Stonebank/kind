@@ -14,13 +14,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.graphics.BlendMode
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.graphics.*
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -78,7 +76,9 @@ fun ShowPortFolioView(navController: NavController, userViewModel: UserViewModel
                             Text("Byg portfølje")
                         }
                     }
-                    Column(modifier = Modifier.fillMaxSize().padding(bottom = 50.dp), verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterVertically), horizontalAlignment = Alignment.Start) {
+                    Column(modifier = Modifier
+                        .fillMaxSize()
+                        .padding(bottom = 50.dp), verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterVertically), horizontalAlignment = Alignment.Start) {
                         Text(
                             portfolioMessage(userViewModel = userViewModel)[0],
                             color = Color.Black,
@@ -114,25 +114,46 @@ fun SubscribedCards(userViewModel: UserViewModel, theme: Theme, context: Context
         .background(secondaryColor)
         .shadow(1.5.dp, shape = RectangleShape)) {
         Image(painter = painterResource(id = theme.getImage()), contentDescription = "image", contentScale = ContentScale.Crop, modifier = Modifier
-            .fillMaxWidth().heightIn(100.dp, 100.dp),  colorFilter = ColorFilter.tint(Color.Black.copy(alpha = 0.2f), blendMode = BlendMode.Darken))
+            .fillMaxWidth()
+            .heightIn(100.dp, 100.dp),  colorFilter = ColorFilter.tint(Color.Black.copy(alpha = 0.2f), blendMode = BlendMode.Darken))
+        Icon(
+            painter = painterResource(id = R.drawable.ic_baseline_delete_24),
+            contentDescription = "delete",
+            tint = Color.Red.copy(alpha = 0.8f),
+            modifier = Modifier
+                .align(Alignment.TopEnd)
+                .clickable(onClick = {
+                    userViewModel.removeTheme(theme)
+                    Toast
+                        .makeText(
+                            context,
+                            "Du har fjernet ${theme.getName()} fra din portfølje",
+                            Toast.LENGTH_LONG
+                        )
+                        .show()
+                })
+        )
         Row(modifier = Modifier
             .fillMaxSize()
             .padding(10.dp, 10.dp), verticalAlignment = Alignment.Bottom, horizontalArrangement = Arrangement.spacedBy(15.dp)) {
-            Text(text = theme.getName().uppercase(Locale.ROOT), textAlign = TextAlign.Start, color = Color.White, fontWeight = FontWeight.Bold, fontSize = 18.sp, modifier = Modifier.padding(horizontal = 10.dp, vertical = 10.dp))
+            Text(text = theme.getName().uppercase(Locale.ROOT), textAlign = TextAlign.Start, color = Color.White, fontWeight = FontWeight.Bold, fontSize = 18.sp, modifier = Modifier.padding(horizontal = 10.dp, vertical = 10.dp), style = TextStyle(fontSize = 64.sp, shadow = Shadow(color = Color.Black, blurRadius = 5f)))
             Spacer(modifier = Modifier
                 .weight(1f)
                 .fillMaxWidth())
-            Text(text = "${(100 / userViewModel.subscribed.size).toDouble().roundToInt()}%", color = percentageColor, fontWeight = FontWeight.Bold, fontSize = 18.sp, modifier = Modifier.padding(horizontal = 10.dp, vertical = 10.dp), textAlign = TextAlign.End)
-            Icon(
-                painter = painterResource(id = R.drawable.ic_baseline_delete_24),
-                contentDescription = "delete",
-                tint = Color.White,
-                modifier = Modifier.clickable(onClick = {
-                    userViewModel.removeTheme(theme)
-                    Toast.makeText(context, "Du har fjernet ${theme.getName()} fra din portfølje", Toast.LENGTH_LONG).show()
-                })
-            )
+            Text(text = "${(100 / userViewModel.subscribed.size).toDouble().roundToInt()}%", color = percentageColor, fontWeight = FontWeight.Bold, fontSize = 18.sp, modifier = Modifier.padding(horizontal = 17.dp, vertical = 10.dp), textAlign = TextAlign.End, style = TextStyle(fontSize = 64.sp, shadow = Shadow(color = Color.Black, blurRadius = 5f)))
         }
+        Icon(
+            Icons.Default.Edit,
+            contentDescription = "edit",
+            tint = Color.White,
+            modifier = Modifier
+                .align(Alignment.BottomEnd)
+                .padding(vertical = 21.dp, horizontal = 4.dp)
+                .size(20.dp)
+                .clickable(onClick = {
+                    Toast.makeText(context, "NOT YET IMPLEMENTED", Toast.LENGTH_LONG).show()
+                })
+        )
     }
 }
 
