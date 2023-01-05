@@ -39,7 +39,7 @@ fun Navigation(userViewModel: UserViewModel) {
         composable(route = ComposableView.SetDonationView.route) {
             ShowSetDonationView(navController = navigationController, userViewModel = userViewModel)
         }
-
+        
         composable(
             route = ComposableView.ConfirmDonationView.route + "/{amount}", arguments = listOf(navArgument("amount") {
                 type = NavType.StringType
@@ -47,6 +47,10 @@ fun Navigation(userViewModel: UserViewModel) {
             })) {
                 entry ->
             entry.arguments?.getString("amount")?.let { ShowConfirmDonationView(amount = it, navController = navigationController, userViewModel = userViewModel) }
+        }
+
+        composable(route = ComposableView.EditPercentageView.route) {
+            ShowEditPercentageView(navController = navigationController, userViewModel = userViewModel)
         }
 
         composable(

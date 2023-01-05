@@ -3,6 +3,7 @@ package com.dtu.kd3.kind.model
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import com.dtu.kd3.kind.model.charities.Category
 import com.dtu.kd3.kind.model.charities.Theme
 
 /**
@@ -25,6 +26,8 @@ class UserViewModel : ViewModel() {
 
     private val _paymentmethod = mutableStateOf("")
     val paymentmethod: State<String> = _paymentmethod
+    
+    private val _percentages = mutableMapOf<Category, Int>()
 
     fun setName(name: String) {
         _name.value = name
@@ -48,5 +51,13 @@ class UserViewModel : ViewModel() {
 
     fun setPaymentMethod(paymentMethod: String) {
         _paymentmethod.value = paymentMethod
+    }
+
+    fun setPercentage(category: Category, percentage: Int) {
+        _percentages[category] = percentage
+    }
+
+    fun getPercentage(category: Category): Int {
+        return _percentages[category] ?: if (subscribed.size > 1) 0 else 100
     }
 }

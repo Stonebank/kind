@@ -17,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -34,8 +35,6 @@ import kotlin.math.roundToInt
 /**
  * author s205430 - Muaz Ahmed && s205409 - Hassan Kassem
  */
-
-
 
 @Composable
 fun ShowSetDonationView(navController: NavController, userViewModel: UserViewModel) {
@@ -83,6 +82,7 @@ fun ShowSetDonationView(navController: NavController, userViewModel: UserViewMod
                             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                             modifier = Modifier.size(width = 125.dp, height = 55.dp)
                         )
+
                         IconButton(onClick = { editmanually = false }) {
                             Icon(Icons.Default.Done, contentDescription = "", tint = Color(0XFF023020), modifier = Modifier
                                 .clip(CircleShape)
@@ -100,8 +100,6 @@ fun ShowSetDonationView(navController: NavController, userViewModel: UserViewMod
                     }
 
                 }
-
-                //Text(text = "50,00kr", color = Color.Black, fontSize = 24.sp, fontWeight = FontWeight.Bold, modifier = Modifier.align(Alignment.CenterHorizontally))
             }
             if (error) {
                 Text(

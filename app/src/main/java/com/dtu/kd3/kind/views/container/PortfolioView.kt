@@ -30,7 +30,6 @@ import com.dtu.kd3.kind.model.charities.Theme
 import com.dtu.kd3.kind.ui.theme.*
 import com.dtu.kd3.kind.views.ComposableView
 import java.util.*
-import kotlin.math.roundToInt
 
 /**
  * author - s205409 - Hassan Kassem
@@ -91,6 +90,11 @@ fun ShowPortFolioView(navController: NavController, userViewModel: UserViewModel
                             color = Color.Black.copy(0.5f),
                             fontSize = 14.sp,
                         )
+                        if (userViewModel.subscribed.size > 1) {
+                            Button(onClick = { navController.navigate(route = ComposableView.EditPercentageView.route)  }, colors = ButtonDefaults.buttonColors(buttonColor), shape = CircleShape) {
+                                Text("Rediger procentfordeling")
+                            }
+                        }
                         if (userViewModel.subscribed.isNotEmpty()) {
                             userViewModel.subscribed.forEach { theme -> SubscribedCards(
                                 userViewModel = userViewModel,
@@ -112,14 +116,6 @@ fun SubscribedCards(userViewModel: UserViewModel, theme: Theme, context: Context
 
     var dialogVisible by remember { mutableStateOf(false) }
 
-    fun showDialog() {
-        dialogVisible = true
-    }
-
-    fun hideDialog() {
-        dialogVisible = false
-    }
-
     Box(modifier = Modifier
         .height(100.dp)
         .background(secondaryColor)
@@ -134,15 +130,7 @@ fun SubscribedCards(userViewModel: UserViewModel, theme: Theme, context: Context
             modifier = Modifier
                 .align(Alignment.TopEnd)
                 .clickable(onClick = {
-                    showDialog()
-                    /*userViewModel.removeTheme(theme)
-                    Toast
-                        .makeText(
-                            context,
-                            "Du har fjernet ${theme.getName()} fra din portfølje",
-                            Toast.LENGTH_LONG
-                        )
-                        .show()*/
+                    dialogVisible = true
                 })
         )
         Row(modifier = Modifier
@@ -152,27 +140,13 @@ fun SubscribedCards(userViewModel: UserViewModel, theme: Theme, context: Context
             Spacer(modifier = Modifier
                 .weight(1f)
                 .fillMaxWidth())
-            Text(text = "${(100 / userViewModel.subscribed.size).toDouble().roundToInt()}%", color = percentageColor, fontWeight = FontWeight.Bold, fontSize = 18.sp, modifier = Modifier.padding(horizontal = 17.dp, vertical = 10.dp), textAlign = TextAlign.End, style = TextStyle(fontSize = 64.sp, shadow = Shadow(color = Color.Black, blurRadius = 5f)))
+            Text(text = "${userViewModel.getPercentage(theme.getCategory())}%", color = percentageColor, fontWeight = FontWeight.Bold, fontSize = 18.sp, modifier = Modifier.padding(horizontal = 17.dp, vertical = 10.dp), textAlign = TextAlign.End, style = TextStyle(fontSize = 64.sp, shadow = Shadow(color = Color.Black, blurRadius = 5f)))
         }
-        Icon(
-            Icons.Default.Edit,
-            contentDescription = "edit",
-            tint = Color.White,
-            modifier = Modifier
-                .align(Alignment.BottomEnd)
-                .padding(vertical = 21.dp, horizontal = 4.dp)
-                .size(20.dp)
-                .clickable(onClick = {
-                    Toast
-                        .makeText(context, "NOT YET IMPLEMENTED", Toast.LENGTH_LONG)
-                        .show()
-                })
-        )
     }
 
     if (dialogVisible) {
         AlertDialog(
-            onDismissRequest = { hideDialog() },
+            onDismissRequest = { dialogVisible = false },
             title = { Text(text = "Fjern ${theme.getName()} fra din portfølje?") },
             text = { Text(text = "Dette vil fjerne ${theme.getName()} fra din portfølje og du vil ikke længere abonnere hos dette tema.") },
             confirmButton = {
@@ -185,21 +159,21 @@ fun SubscribedCards(userViewModel: UserViewModel, theme: Theme, context: Context
                             Toast.LENGTH_LONG
                         )
                         .show()
-                    hideDialog()
+                    dialogVisible = false
                 }, colors = ButtonDefaults.buttonColors(buttonColor)) {
                     Text(text = "Fjern")
                 }
             },
             dismissButton = {
-                Button(onClick = { hideDialog() }, colors = ButtonDefaults.buttonColors(Color.Green)) {
+                Button(onClick = { dialogVisible = false }, colors = ButtonDefaults.buttonColors(Color.Green)) {
                     Text(text = "Fortryd")
                 }
             }
         )
     }
 
-
 }
+
 
 @Composable
 fun RoundedProfileImage(imageID: Int) {

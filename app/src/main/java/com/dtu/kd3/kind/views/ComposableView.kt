@@ -38,6 +38,9 @@ sealed class ComposableView(val title: String, val icon: Int, val route: String)
     /* Read more view */
     object ReadMoreView: ComposableView("", -1,"read_more_view")
 
+    /* edit percentage view */
+    object EditPercentageView: ComposableView("", -1,"edit_percentage_view")
+
     fun passArguments(vararg args: String) : String {
         return buildString {
             append(route)
