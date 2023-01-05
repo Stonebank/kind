@@ -23,6 +23,9 @@ class UserViewModel : ViewModel() {
     private val _subscribed = mutableListOf<Theme>()
     val subscribed: List<Theme> = _subscribed
 
+    private val _paymentmethod = mutableStateOf("")
+    val paymentmethod: State<String> = _paymentmethod
+
     fun setName(name: String) {
         _name.value = name
     }
@@ -43,4 +46,7 @@ class UserViewModel : ViewModel() {
         _subscribed.remove(theme)
     }
 
+    fun setPaymentMethod(paymentMethod: String) {
+        _paymentmethod.value = paymentMethod
+    }
 }
