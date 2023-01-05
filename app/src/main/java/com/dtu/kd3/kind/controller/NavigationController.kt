@@ -4,7 +4,6 @@ package com.dtu.kd3.kind.controller
  * author s205409 - Hassan Kassem
  */
 
-import android.content.res.Resources.Theme
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -12,7 +11,6 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.dtu.kd3.kind.model.UserViewModel
-import com.dtu.kd3.kind.model.charities.ThemeManager
 import com.dtu.kd3.kind.views.ComposableView
 import com.dtu.kd3.kind.views.container.*
 
@@ -40,6 +38,9 @@ fun Navigation(userViewModel: UserViewModel) {
         }
         composable(route = ComposableView.SetDonationView.route) {
             ShowSetDonationView(navController = navigationController, userViewModel = userViewModel)
+        }
+        composable(route = ComposableView.EditPercentageView.route) {
+            ShowEditPercentageView(navController = navigationController, userViewModel = userViewModel)
         }
         composable(
             route = ComposableView.ReadMoreView.route + "/{name}", arguments = listOf(navArgument("name") {

@@ -3,6 +3,7 @@ package com.dtu.kd3.kind.model
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import com.dtu.kd3.kind.model.charities.Category
 import com.dtu.kd3.kind.model.charities.Theme
 
 /**
@@ -23,6 +24,8 @@ class UserViewModel : ViewModel() {
     private val _subscribed = mutableListOf<Theme>()
     val subscribed: List<Theme> = _subscribed
 
+    private val _percentages = mutableMapOf<Category, Int>()
+
     fun setName(name: String) {
         _name.value = name
     }
@@ -41,6 +44,14 @@ class UserViewModel : ViewModel() {
 
     fun removeTheme(theme: Theme) {
         _subscribed.remove(theme)
+    }
+
+    fun setPercentage(category: Category, percentage: Int) {
+        _percentages[category] = percentage
+    }
+
+    fun getPercentage(category: Category): Int {
+        return _percentages[category] ?: if (subscribed.size > 1) 0 else 100
     }
 
 }
