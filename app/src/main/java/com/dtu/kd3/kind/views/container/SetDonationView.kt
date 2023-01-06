@@ -11,24 +11,23 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.MaterialTheme.colors
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Done
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.dtu.kd3.kind.model.UserViewModel
 import com.dtu.kd3.kind.ui.theme.buttonColor
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.style.TextAlign
 import com.dtu.kd3.kind.views.ComposableView
 import kotlin.math.roundToInt
 
@@ -56,8 +55,7 @@ fun ShowSetDonationView(navController: NavController, userViewModel: UserViewMod
             Column(modifier = Modifier.padding(start = 20.dp, end = 10.dp)) {
                 Text(text = "Indtast beløb", color = Color.Black, fontSize = 20.sp, fontWeight = FontWeight.Bold)
                 Spacer(modifier = Modifier.height(5.dp))
-                // "Dette er beløbet som du vil donere hver måned. Du kan ændre det til enhver tid og der er ingen binding. Minimum beløb er 50 kr."
-                Text(text = "Dette er beløbet som du vil donere enten som et engangsbeløb eller månedligt. Minimum beløb er 50 kr.", color = Color.Black.copy(0.5f), fontSize = 14.sp, fontWeight = FontWeight.Bold)
+                Text(text = "Dette er beløbet som du vil donere hver måned. Du kan ændre det til enhver tid og der er ingen binding. Minimum beløb er 50 kr.", color = Color.Black.copy(0.5f), fontSize = 14.sp, fontWeight = FontWeight.Bold)
                 if (userViewModel.donator.value) {
                     Spacer(modifier = Modifier.height(10.dp))
                     Text(

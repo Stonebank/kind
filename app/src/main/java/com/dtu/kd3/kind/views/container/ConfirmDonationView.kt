@@ -91,7 +91,7 @@ fun ShowConfirmDonationView(amount: String, navController: NavController, userVi
             }
             Column(modifier = Modifier
                 .fillMaxWidth()) {
-                ShowPaymentMethod(image = R.drawable.apple_pay, method = "Apple Pay", userViewModel = userViewModel)
+                ShowPaymentMethod(image = R.drawable.google_pay, method = "Google Pay", userViewModel = userViewModel)
                 ShowPaymentMethod(image = R.drawable.credit_card, method = "Credit Card", userViewModel = userViewModel)
                 ShowPaymentMethod(image = R.drawable.paypal3, method = "PayPal", userViewModel = userViewModel)
             }
