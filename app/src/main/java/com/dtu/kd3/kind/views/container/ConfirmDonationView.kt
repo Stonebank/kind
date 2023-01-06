@@ -75,7 +75,7 @@ fun ShowConfirmDonationView(amount: String, navController: NavController, userVi
                         color = Color(0xFF2D2D2D)
                     )
                     Text(
-                        text = "One time payment.",
+                        text = "Måndelig donation. Du kan annullere når som helst",
                         fontSize = 13.sp,
                         fontWeight = FontWeight.Light,
                         color = Color(0xFF2D2D2D)
@@ -110,7 +110,7 @@ fun ShowConfirmDonationView(amount: String, navController: NavController, userVi
                     .padding(20.dp),
                 shape = RoundedCornerShape(10.dp),
                 colors = ButtonDefaults.buttonColors(backgroundColor = buttonColor)) {
-                Text(text = "Confirm Donation", color = Color.Black)
+                Text(text = "Bekræft donation", color = Color.Black)
             }
         }
     }

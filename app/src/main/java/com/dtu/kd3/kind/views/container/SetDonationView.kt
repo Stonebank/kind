@@ -11,9 +11,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.MaterialTheme.colors
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Done
-import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -69,18 +67,22 @@ fun ShowSetDonationView(navController: NavController, userViewModel: UserViewMod
                 Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Center) {
                     if(editmanually) {
                         TextField(
-                            value = input.roundToInt().toString(),
-                            onValueChange = { input = it.toFloatOrNull() ?: 0f },
+                            value = input.toString(),
+                            onValueChange = { input = (it.toFloatOrNull() ?: 0) as Float },
+                            leadingIcon = {
+                                Icon(
+                                    imageVector = if (error) Icons.Default.Warning else Icons.Default.Add,
+                                    contentDescription = "",
+                                    tint = if (error) Color.Red else Color.Black
+                                )
+                            },
                             label = { Text("Beløb", fontSize = 14.sp, fontWeight = FontWeight.Bold, color = Color.Black) },
                             placeholder = { Text("0 kr", color = Color.White.copy(0.5f), fontWeight = FontWeight.Bold) },
                             colors = TextFieldDefaults.textFieldColors(Color.Black),
                             singleLine = true,
                             isError = error,
                             keyboardActions = KeyboardActions(onDone = { checkInput(input = input) }),
-                            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                            modifier = Modifier.size(width = 125.dp, height = 55.dp)
                         )
-
                         IconButton(onClick = { editmanually = false }) {
                             Icon(Icons.Default.Done, contentDescription = "", tint = Color(0XFF023020), modifier = Modifier
                                 .clip(CircleShape)
