@@ -24,6 +24,9 @@ class UserViewModel : ViewModel() {
     private val _subscribed = mutableListOf<Theme>()
     val subscribed: List<Theme> = _subscribed
 
+    private val _paymentmethod = mutableStateOf("")
+    val paymentmethod: State<String> = _paymentmethod
+    
     private val _percentages = mutableMapOf<Category, Int>()
 
     fun setName(name: String) {
@@ -46,6 +49,10 @@ class UserViewModel : ViewModel() {
         _subscribed.remove(theme)
     }
 
+    fun setPaymentMethod(paymentMethod: String) {
+        _paymentmethod.value = paymentMethod
+    }
+
     fun setPercentage(category: Category, percentage: Int) {
         _percentages[category] = percentage
     }
@@ -53,5 +60,4 @@ class UserViewModel : ViewModel() {
     fun getPercentage(category: Category): Int {
         return _percentages[category] ?: if (subscribed.size > 1) 0 else 100
     }
-
 }

@@ -32,6 +32,9 @@ sealed class ComposableView(val title: String, val icon: Int, val route: String)
     /* set donation view */
     object SetDonationView: ComposableView("", -1,"set_donation_view")
 
+    /* confirm donation view */
+    object ConfirmDonationView: ComposableView("", -1,"confirm_donation_view")
+
     /* Read more view */
     object ReadMoreView: ComposableView("", -1,"read_more_view")
 

@@ -71,7 +71,7 @@ fun ShowHomeView(navController: NavController, userViewModel: UserViewModel) {
 fun HomeTitle(userViewModel: UserViewModel, navController: NavController) {
     Spacer(modifier = Modifier.height(10.dp))
     Text("Hej ${userViewModel.name.value}", fontSize = 30.sp, fontWeight = FontWeight.Bold, color = Color.Black)
-    Text("${if (userViewModel.donator.value) "Dit abonnement på ${userViewModel.donated.value.toInt()} kr. er sat op! Vi takker for at du vil være med til at gøre en forskel." else "Med kun 50 kr. kan du gøre en forskel for en person i nød. "} ", fontSize = 16.sp, fontWeight = FontWeight.Bold, color = Color.Black.copy(alpha = 0.5f), modifier = Modifier.padding(end = 10.dp))
+    Text("${if (userViewModel.donator.value) "Dit abonnement på ${String.format("%.1f", userViewModel.donated.value)} kr. er sat op! Vi takker for at du vil være med til at gøre en forskel." else "Med kun 50 kr. kan du gøre en forskel for en person i nød. "} ", fontSize = 16.sp, fontWeight = FontWeight.Bold, color = Color.Black.copy(alpha = 0.5f), modifier = Modifier.padding(end = 10.dp))
     if (!userViewModel.donator.value) {
         Button(onClick = {
                             navController.navigate(route = ComposableView.SetDonationView.route)
