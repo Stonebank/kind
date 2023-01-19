@@ -27,7 +27,7 @@ class UserViewModel : ViewModel() {
     private val _paymentmethod = mutableStateOf("")
     val paymentmethod: State<String> = _paymentmethod
     
-    private val _percentages = mutableMapOf<Category, Int>()
+    val _percentages = mutableMapOf<Category, Int>()
 
     fun setName(name: String) {
         _name.value = name

@@ -19,6 +19,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.dtu.kd3.kind.R
+import com.dtu.kd3.kind.database.FirebaseManager
 import com.dtu.kd3.kind.input.TextInputType
 import com.dtu.kd3.kind.model.UserViewModel
 import com.dtu.kd3.kind.ui.theme.buttonColor
@@ -58,12 +59,15 @@ fun ShowRegisterView(navController: NavController, userViewModel: UserViewModel)
             TextInput(TextInputType.Password, keyboardActions = KeyboardActions(onNext = { focusManager.moveFocus(
                 FocusDirection.Next) }))
             TextInput("Bekræft kodeord", TextInputType.Password, keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() }), focusRequester = passwordFocusRequester)
-            Button(onClick = { navController.navigate(route = ComposableView.HomeView.route) }, shape = CircleShape, colors = ButtonDefaults.buttonColors(backgroundColor = buttonColor), modifier = Modifier.fillMaxWidth()) {
+            Button(onClick = {
+                //FirebaseManager.instance.createAccount("test@test.com", "hello123", userViewModel)
+                navController.navigate(route = ComposableView.HomeView.route)
+                             }, shape = CircleShape, colors = ButtonDefaults.buttonColors(backgroundColor = buttonColor), modifier = Modifier.fillMaxWidth()) {
                 Text("Opret bruger", Modifier.padding(vertical = 8.dp), color = Color.Black)
             }
             Divider(color = Color.White.copy(alpha = 0.3f), thickness = 2.dp, modifier = Modifier.padding(24.dp))
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Button(onClick = { /*TODO*/ }, shape = CircleShape, colors = ButtonDefaults.buttonColors(backgroundColor = secondaryColor), modifier = Modifier.fillMaxWidth()) {
+                Button(onClick = {  }, shape = CircleShape, colors = ButtonDefaults.buttonColors(backgroundColor = secondaryColor), modifier = Modifier.fillMaxWidth()) {
                     Text("Har du allerede en bruger?")
                 }
             }

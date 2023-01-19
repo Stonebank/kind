@@ -17,6 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.dtu.kd3.kind.R
+import com.dtu.kd3.kind.database.FirebaseManager
 import com.dtu.kd3.kind.input.TextInputType
 import com.dtu.kd3.kind.model.UserViewModel
 import com.dtu.kd3.kind.ui.theme.buttonColor
@@ -56,7 +57,10 @@ fun ShowLoginView(navController: NavController, userViewModel: UserViewModel) {
                     .height(200.dp))
             TextInput(TextInputType.Email, keyboardActions = KeyboardActions(onNext = { passwordFocusRequester.requestFocus() }))
             TextInput(TextInputType.Password, keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() }), focusRequester = passwordFocusRequester)
-            Button(onClick = { navController.navigate(route = ComposableView.HomeView.route) }, shape = CircleShape, colors = ButtonDefaults.buttonColors(backgroundColor = buttonColor), modifier = Modifier.fillMaxWidth()) {
+            Button(onClick = {
+                //FirebaseManager.instance.login("test@test.com", "hello123")
+                navController.navigate(route = ComposableView.HomeView.route)
+                             }, shape = CircleShape, colors = ButtonDefaults.buttonColors(backgroundColor = buttonColor), modifier = Modifier.fillMaxWidth()) {
                 Text("Log ind", Modifier.padding(vertical = 8.dp), color = Color.Black)
             }
             TextButton(onClick = { /*TODO*/ }, modifier = Modifier.align(Alignment.End)) {
