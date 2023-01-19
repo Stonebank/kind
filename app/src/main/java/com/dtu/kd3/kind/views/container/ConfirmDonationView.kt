@@ -6,7 +6,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
-import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
@@ -93,7 +92,7 @@ fun ShowConfirmDonationView(amount: String, navController: NavController, userVi
                 .fillMaxWidth()) {
                 ShowPaymentMethod(image = R.drawable.google_pay, method = "Google Pay", userViewModel = userViewModel)
                 ShowPaymentMethod(image = R.drawable.credit_card, method = "Credit Card", userViewModel = userViewModel)
-                ShowPaymentMethod(image = R.drawable.paypal3, method = "PayPal", userViewModel = userViewModel)
+                ShowPaymentMethod(image = R.drawable.paypal, method = "PayPal", userViewModel = userViewModel)
             }
             Spacer(modifier = Modifier.weight(1f))
             Row(modifier = Modifier
