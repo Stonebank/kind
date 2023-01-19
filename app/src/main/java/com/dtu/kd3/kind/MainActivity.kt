@@ -20,10 +20,6 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val userModelView: UserViewModel by viewModels()
-        ThemeManager.instance.theme.add(Social())
-        ThemeManager.instance.theme.add(Environment())
-        ThemeManager.instance.theme.add(Health())
-        ThemeManager.instance.theme.add(Immigrants())
         setContent {
             KindTheme {
                 Surface {
