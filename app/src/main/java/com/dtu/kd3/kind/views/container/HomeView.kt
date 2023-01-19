@@ -1,6 +1,7 @@
 package com.dtu.kd3.kind.views.container
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
@@ -24,6 +25,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.dtu.kd3.kind.R
+import com.dtu.kd3.kind.database.FirebaseManager
 import com.dtu.kd3.kind.model.UserViewModel
 import com.dtu.kd3.kind.model.charities.Theme
 import com.dtu.kd3.kind.model.charities.ThemeManager
@@ -31,6 +33,7 @@ import com.dtu.kd3.kind.ui.theme.buttonColor
 import com.dtu.kd3.kind.ui.theme.secondaryColor
 import com.dtu.kd3.kind.utility.DummyNews
 import com.dtu.kd3.kind.views.ComposableView
+import com.google.firebase.auth.FirebaseAuth
 import java.util.*
 
 /**
