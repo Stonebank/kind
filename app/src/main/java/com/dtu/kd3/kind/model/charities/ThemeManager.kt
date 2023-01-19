@@ -2,6 +2,9 @@ package com.dtu.kd3.kind.model.charities
 
 /**
  * author: s205409 - Hassan Kassem
+ *
+ * ThemeManager is a singleton that is used to manage the themes
+ *
  */
 
 

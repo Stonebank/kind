@@ -21,6 +21,14 @@ import com.dtu.kd3.kind.views.ComposableView
  *
  */
 
+
+/**
+ * BottomNavigation is a composable that creates a bottom navigation bar using the Material design guidelines
+ *
+ * @param navController: NavController is the navigation controller that is used to navigate between the different views
+ *
+ */
+
 @Composable
 fun BottomNavigation(navController: NavController) {
     val items = listOf(

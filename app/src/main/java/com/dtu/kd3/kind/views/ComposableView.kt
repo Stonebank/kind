@@ -5,7 +5,13 @@ import com.dtu.kd3.kind.R
 /**
  * @author s205409 - Hassan Kassem
  *
- * Simple sealed class to contain the route string for the navigation controller
+ * ComposableView is a sealed class that is used to define the different views
+ *
+ * It is also used in the bottom navigation bar to display icons and define the route
+ *
+ * @param title: String is the title of the view
+ * @param icon: Int is the icon of the view
+ * @param route: String is the route of the view
  *
  */
 

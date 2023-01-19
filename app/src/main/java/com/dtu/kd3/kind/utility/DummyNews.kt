@@ -6,6 +6,9 @@ import com.dtu.kd3.kind.R
  * Created by Hassan on 02-01-2023
  * S205409
  * Stonebank
+ *
+ * DummyNews is a class that is used to create dummy news. It is to demonstrate the purpose of the news section
+ *
  */
 enum class DummyNews(
     val title: String,

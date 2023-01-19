@@ -124,6 +124,14 @@ fun ThemeCard(navController: NavController, userViewModel: UserViewModel, theme:
     }
 }
 
+/**
+ * IsSupportingAll checks if the user is supporting all the themes
+ *
+ * @param userViewModel the userViewModel
+ * @return true if the user is supporting all the themes
+ *
+ */
+
 fun isSupportingAll(userViewModel: UserViewModel) : Boolean {
     return userViewModel.subscribed.size == ThemeManager.instance.theme.size
 }

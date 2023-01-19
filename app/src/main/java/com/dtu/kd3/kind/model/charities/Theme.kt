@@ -2,6 +2,9 @@ package com.dtu.kd3.kind.model.charities
 
 /**
  * author: s205409 - Hassan Kassem
+ *
+ * Theme is an interface that is used to define the different themes
+ *
  */
 
 

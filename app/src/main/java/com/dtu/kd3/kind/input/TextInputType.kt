@@ -13,6 +13,14 @@ import androidx.compose.ui.text.input.VisualTransformation
 
 /**
  * @author: s205409 - Hassan Kassem
+ *
+ * TextInputType is a sealed class that is used to define the different types of input fields
+ *
+ * @param label: String is the label of the input field
+ * @param icon: ImageVector is the icon of the input field
+ * @param keyboardOptions is the keyboard options of the input field
+ * @param visualTransformation is the visual transformation of the input field
+ *
  */
 
 sealed class TextInputType(val label: String, val icon: ImageVector, val keyboardOptions: KeyboardOptions, val visualTransformation: VisualTransformation) {

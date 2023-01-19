@@ -146,6 +146,12 @@ fun ShowSetDonationView(navController: NavController, userViewModel: UserViewMod
     }
 }
 
+/**
+ * checkInput checks if the input is valid
+ * @param input the input to check
+ * @return true if the input is valid, false if not
+ */
+
 fun checkInput(input: Float) : Boolean {
     return input >= 50
 }

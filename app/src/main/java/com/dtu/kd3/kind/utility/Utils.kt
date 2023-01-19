@@ -18,6 +18,13 @@ import com.dtu.kd3.kind.ui.theme.secondaryColor
  */
 
 
+/**
+ * TextInput is a composable that is used to create a text input field
+ *
+ * @param inputType is the type of the text input field
+ *
+ */
+
 @Composable
 fun TextInput(inputType: TextInputType, focusRequester: FocusRequester? = null, keyboardActions: KeyboardActions) {
     var value by remember { mutableStateOf("") }

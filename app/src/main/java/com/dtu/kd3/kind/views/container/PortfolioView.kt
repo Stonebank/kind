@@ -198,6 +198,11 @@ fun RoundedProfileImage(imageID: Int) {
     )
 }
 
+/**
+ * This function returns a list of strings that is used to display the message in the portfolio view.
+ * @param userViewModel The userViewModel that is used to get the data from the user.
+ * @return A list of strings that is used to display the message in the portfolio view.
+ */
 
 fun portfolioMessage(userViewModel: UserViewModel) : List<String> {
     val message = mutableListOf<String>()

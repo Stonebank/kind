@@ -128,6 +128,13 @@ fun InputDialog(userViewModel: UserViewModel, theme: Theme, context: Context = L
     }
 }
 
+/**
+ * canSavePercentages checks if the percentages are valid
+ *
+ * @param userViewModel the userViewModel
+ *
+ */
+
 fun canSavePercentages(userViewModel: UserViewModel) : Boolean {
     var sum = 0
     for (theme in userViewModel.subscribed) {
@@ -139,6 +146,13 @@ fun canSavePercentages(userViewModel: UserViewModel) : Boolean {
     }
     return true
 }
+
+/**
+ * isNotHundredPercentage checks if the percentages are valid
+ *
+ * @param userViewModel the userViewModel
+ *
+ */
 
 fun isNotHundredPercentage(userViewModel: UserViewModel) : Boolean {
     var sum = 0

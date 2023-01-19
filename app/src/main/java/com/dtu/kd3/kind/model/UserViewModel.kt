@@ -8,6 +8,9 @@ import com.dtu.kd3.kind.model.charities.Theme
 
 /**
  * author s205409 - Hassan Kassem
+ *
+ * UserViewModel is a view model that is used to store the user data
+ *
  */
 
 class UserViewModel : ViewModel() {

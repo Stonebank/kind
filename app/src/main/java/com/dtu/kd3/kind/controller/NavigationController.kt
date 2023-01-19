@@ -14,6 +14,14 @@ import com.dtu.kd3.kind.model.UserViewModel
 import com.dtu.kd3.kind.views.ComposableView
 import com.dtu.kd3.kind.views.container.*
 
+/**
+ *
+ * Navigation is a composable that creates a navigation controller that is used to navigate between the different views
+ *
+ * @param userViewModel: UserViewModel is the view model that is used to store the user data
+ *
+ */
+
 @Composable
 fun Navigation(userViewModel: UserViewModel) {
     val navigationController = rememberNavController()
