@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "267311599433",
+    "project_id": "kind-de364",
+    "storage_bucket": "kind-de364.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:267311599433:android:26237a1df8926f2cf15498",
+        "android_client_info": {
+          "package_name": "com.dtu.kd3.kind"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "267311599433-d1li5im3oql2ii11tf216gt6jd15vvo5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAmNrNOo--nrmyKKuWbatDe8ULsKO-ajPI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "267311599433-d1li5im3oql2ii11tf216gt6jd15vvo5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
