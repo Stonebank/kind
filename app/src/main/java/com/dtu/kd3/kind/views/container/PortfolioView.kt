@@ -2,7 +2,10 @@ package com.dtu.kd3.kind.views.container
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.net.Uri
 import android.widget.Toast
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
@@ -43,6 +46,14 @@ import java.util.*
 @Composable
 fun ShowPortFolioView(navController: NavController, userViewModel: UserViewModel) {
     val context = LocalContext.current
+
+    var pictureUri by remember { mutableStateOf("") }
+
+    val launcher = rememberLauncherForActivityResult(contract = ActivityResultContracts.GetContent(),)
+    { uri: Uri? ->
+        uri?.let { pictureUri = it.toString() }
+    }
+
     var refresh by remember { mutableStateOf(false) }
     Scaffold(bottomBar = { com.dtu.kd3.kind.controller.BottomNavigation(navController = navController) }) {
         Surface(modifier = Modifier.fillMaxSize()) {
@@ -58,7 +69,7 @@ fun ShowPortFolioView(navController: NavController, userViewModel: UserViewModel
                         .padding(start = 70.dp, top = 20.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(20.dp, Alignment.CenterHorizontally)) {
                         RoundedProfileImage(imageID = R.drawable.dtu_logo)
                         IconButton(onClick = {
-                            Toast.makeText(context, "THIS FEATURE HAS NOT BEEN ADDED YET!", Toast.LENGTH_SHORT).show()
+                            launcher.launch("image/*")
                         }) {
                             Icon(Icons.Default.Edit, contentDescription = "edit", tint = Color.Black)
                         }
