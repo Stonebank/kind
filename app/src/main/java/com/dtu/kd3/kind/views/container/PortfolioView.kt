@@ -38,7 +38,8 @@ import java.util.*
  * author - s205409 - Hassan Kassem
  *
  * Contributors:
- *  - s215817 Elias Rajabi
+ *  -- s215817 Elias Rajabi
+ *
  *
  */
 
