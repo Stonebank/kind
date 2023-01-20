@@ -12,7 +12,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 
 /**
- * @author: s205409 - Hassan Kassem
+ * @author: s205409 -- Hassan Kassem
  *
  * TextInputType is a sealed class that is used to define the different types of input fields
  *
