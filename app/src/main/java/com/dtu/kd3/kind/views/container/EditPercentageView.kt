@@ -25,7 +25,7 @@ import com.dtu.kd3.kind.ui.theme.buttonColor
 /**
  * Created by Hassan on 05-01-2023
  * S205409
- * Stonebank
+ * *Stonebank
  */
 
 @Composable
